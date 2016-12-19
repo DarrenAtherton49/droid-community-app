@@ -1,0 +1,3 @@
+package com.darrenatherton.droidcommunity.base.presentation
+
+interface BaseView
