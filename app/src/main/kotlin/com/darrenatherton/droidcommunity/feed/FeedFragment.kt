@@ -49,6 +49,11 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(),
         initRecyclerView(view)
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        this.feedListNavListener = null
+    }
+
     private fun initRecyclerView(rootView: View) {
         feedListAdapter.addOnItemClickListener(this)
         val recyclerView = rootView.findViewById(R.id.fragment_feed_recyclerview) as RecyclerView
