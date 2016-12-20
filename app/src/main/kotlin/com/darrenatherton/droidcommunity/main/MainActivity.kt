@@ -2,6 +2,7 @@ package com.darrenatherton.droidcommunity.main
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -10,10 +11,11 @@ import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.base.presentation.BaseActivity
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerMainViewComponent
 import com.darrenatherton.droidcommunity.common.injection.component.MainViewComponent
+import com.darrenatherton.droidcommunity.feed.FeedItem
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
-        MainPresenter.View, AHBottomNavigation.OnTabSelectedListener {
+        MainPresenter.View, MainNavigation, AHBottomNavigation.OnTabSelectedListener {
 
     private lateinit var mainViewComponent: MainViewComponent
     override val passiveView = this
@@ -23,14 +25,16 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
     private val FEED = 0
     private val CHAT = 1
     private val EVENTS = 2
-    private val PROFILE = 3
 
     //===================================================================================
-    // Lifecycle methods and initialization
+    // Lifecycle functions and initialization
     //===================================================================================
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        setSupportActionBar(toolbar)
 
         initBottomNav()
     }
@@ -60,8 +64,7 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         val tabs = listOf(
                 AHBottomNavigationItem(R.string.feed_tab, R.drawable.ic_profile_tab, R.color.bottom_nav),
                 AHBottomNavigationItem(R.string.chat_tab, R.drawable.ic_profile_tab, R.color.bottom_nav),
-                AHBottomNavigationItem(R.string.events_tab, R.drawable.ic_profile_tab, R.color.bottom_nav),
-                AHBottomNavigationItem(R.string.profile_tab, R.drawable.ic_profile_tab, R.color.bottom_nav)
+                AHBottomNavigationItem(R.string.events_tab, R.drawable.ic_profile_tab, R.color.bottom_nav)
         )
         bottomNav.addItems(tabs)
 
@@ -78,7 +81,6 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
                 FEED -> presenter.onFeedButtonClicked()
                 CHAT -> presenter.onChatButtonClicked()
                 EVENTS -> presenter.onEventsButtonClicked()
-                PROFILE -> presenter.onProfileButtonClicked()
             }
         }
         return !wasSelected
@@ -97,11 +99,11 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
     }
 
     //===================================================================================
-    // View methods
+    // View functions
     //===================================================================================
 
     override fun showFeed() {
-        navigator.showFeedScreen(this)
+        navigator.showFeedList(this)
     }
 
     override fun showChat() {
@@ -112,7 +114,11 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
 
     }
 
-    override fun showProfile() {
+    //===================================================================================
+    // Navigation functions from fragments
+    //===================================================================================
 
+    override fun showFeedItem(feedItem: FeedItem) {
+        navigator.showFeedItem(this, feedItem)
     }
 }

@@ -17,25 +17,20 @@ class MainPresenter @Inject constructor() : BasePresenter<MainPresenter.View>() 
     }
 
     internal fun onFeedButtonClicked() {
-        view.showFeed()
+        performViewAction { showFeed() }
     }
 
     internal fun onChatButtonClicked() {
-        view.showChat()
+        performViewAction { showChat() }
     }
 
     internal fun onEventsButtonClicked() {
-        view.showEvents()
-    }
-
-    internal fun onProfileButtonClicked() {
-        view.showProfile()
+        performViewAction { showEvents() }
     }
 
     interface View : BaseView {
         fun showFeed()
         fun showChat()
         fun showEvents()
-        fun showProfile()
     }
 }

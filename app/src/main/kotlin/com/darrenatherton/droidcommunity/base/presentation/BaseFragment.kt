@@ -38,7 +38,7 @@ abstract class BaseFragment<View: BaseView, out Presenter : BasePresenter<View>>
         presenter.viewDetached()
     }
 
-    private fun act() = activity as AppCompatActivity
+    protected fun act() = activity as AppCompatActivity
 
     protected fun appComponent() = (act().application as DroidApplication).appComponent
 

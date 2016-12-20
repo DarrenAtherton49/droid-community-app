@@ -16,7 +16,11 @@ class FeedPresenter @Inject constructor() : BasePresenter<FeedPresenter.View>() 
 
     }
 
-    interface View : BaseView {
+    internal fun onFeedItemClicked(feedItem: FeedItem) {
+        performViewAction { showFeedItem(feedItem) }
+    }
 
+    interface View : BaseView {
+        fun showFeedItem(feedItem: FeedItem)
     }
 }

@@ -5,6 +5,9 @@
     <string name="feed_tab">FEED</string>
     <string name="chat_tab">CHAT</string>
     <string name="events_tab">EVENTS</string>
-    <string name="profile_tab">PROFILE</string>
+
+    <string name="feed_title">Feed</string>
+    <string name="chat_title">Title</string>
+    <string name="events_title">Events</string>
 
 </resources>
