@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import com.darrenatherton.droidcommunity.common.navigation.Navigator
 import com.darrenatherton.droidcommunity.common.threading.*
 import dagger.Module
 import dagger.Provides
@@ -23,6 +24,8 @@ class AppModule(private val application: Application) {
     @Provides @Singleton internal fun provideSharedPrefs(): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(application)
     }
+
+    @Provides @Singleton internal fun provideNavigator() = Navigator()
 
     @Provides @Singleton internal fun provideUiThread(androidUiThread: AndroidUiExecutor): UiExecutor {
         return androidUiThread

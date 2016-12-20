@@ -11,6 +11,8 @@ abstract class BaseActivity<View: BaseView, out Presenter : BasePresenter<View>>
     protected abstract val presenter: Presenter
     protected abstract val layoutResId: Int
 
+    protected val navigator by lazy { appComponent().navigator() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // The activity is being created.
         super.onCreate(savedInstanceState)

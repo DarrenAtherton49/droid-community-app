@@ -3,6 +3,7 @@ package com.darrenatherton.droidcommunity.common.injection.component
 import android.content.Context
 import android.content.SharedPreferences
 import com.darrenatherton.droidcommunity.common.injection.module.AppModule
+import com.darrenatherton.droidcommunity.common.navigation.Navigator
 import dagger.Component
 import javax.inject.Singleton
 
@@ -15,4 +16,5 @@ interface AppComponent {
 
     fun context(): Context
     fun sharedPreferences(): SharedPreferences
+    fun navigator(): Navigator
 }

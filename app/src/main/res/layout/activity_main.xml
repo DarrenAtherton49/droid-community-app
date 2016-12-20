@@ -8,8 +8,6 @@
     android:fitsSystemWindows="true"
     tools:context=".main.MainActivity">
 
-    <include layout="@layout/layout_appbar"/>
-
     <FrameLayout
         android:id="@+id/activity_main_fragment_container"
         android:layout_width="match_parent"

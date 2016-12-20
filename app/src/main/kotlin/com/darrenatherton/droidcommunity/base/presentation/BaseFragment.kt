@@ -14,6 +14,8 @@ abstract class BaseFragment<View: BaseView, out Presenter : BasePresenter<View>>
     protected abstract val presenter: Presenter
     protected abstract val layoutResId: Int
 
+    protected val navigator by lazy { appComponent().navigator() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,11 +38,11 @@ abstract class BaseFragment<View: BaseView, out Presenter : BasePresenter<View>>
         presenter.viewDetached()
     }
 
-    private val act = activity as AppCompatActivity
+    private fun act() = activity as AppCompatActivity
 
-    protected fun appComponent() = (act.application as DroidApplication).appComponent
+    protected fun appComponent() = (act().application as DroidApplication).appComponent
 
-    protected fun activityModule() = ActivityModule(act)
+    protected fun activityModule() = ActivityModule(act())
 
     protected abstract fun initInjection()
 }

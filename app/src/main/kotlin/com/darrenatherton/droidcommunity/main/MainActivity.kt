@@ -2,7 +2,6 @@ package com.darrenatherton.droidcommunity.main
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -32,9 +31,6 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val toolbar = findViewById(R.id.activity_main_toolbar) as Toolbar
-        setSupportActionBar(toolbar)
 
         initBottomNav()
     }
@@ -105,7 +101,7 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
     //===================================================================================
 
     override fun showFeed() {
-
+        navigator.showFeedScreen(this)
     }
 
     override fun showChat() {
