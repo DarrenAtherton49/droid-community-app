@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.base.presentation.BaseFragment
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerFeedComponent
+import com.darrenatherton.droidcommunity.common.injection.module.FeedModule
 import javax.inject.Inject
 
 class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(),
@@ -73,6 +74,7 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(),
         val feedComponent = DaggerFeedComponent.builder()
                 .appComponent(appComponent())
                 .activityModule(activityModule())
+                .feedModule(FeedModule())
                 .build()
         feedComponent.inject(this)
     }

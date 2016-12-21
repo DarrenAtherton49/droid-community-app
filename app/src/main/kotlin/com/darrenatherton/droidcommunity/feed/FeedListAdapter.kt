@@ -5,27 +5,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.darrenatherton.droidcommunity.R
+import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
 import java.util.*
-import javax.inject.Inject
 
-class FeedListAdapter @Inject constructor() : RecyclerView.Adapter<FeedListAdapter.FeedListViewHolder>() {
+@PerScreen
+class FeedListAdapter constructor(private var feedItems: List<FeedItem> = Collections.emptyList()) :
+        RecyclerView.Adapter<FeedListAdapter.FeedListViewHolder>() {
 
     private val onItemClickListeners: MutableList<OnItemClickListener> = ArrayList()
-    private val feedItemList: MutableList<FeedItem> = Collections.emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedListViewHolder {
         return FeedListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_feed, parent, false))
     }
 
     override fun onBindViewHolder(holder: FeedListViewHolder, position: Int) {
-        //todo
+        val feedItem: FeedItem = getItem(position)
     }
 
-    override fun getItemCount() = feedItemList.count()
+    override fun getItemCount() = feedItems.size
 
     override fun getItemViewType(position: Int): Int {
         return 0
     }
+
+    internal fun replaceData(newItems: List<FeedItem>) {
+        feedItems = newItems
+        notifyDataSetChanged()
+    }
+
+    private fun getItem(position: Int) = feedItems[position]
 
     class FeedListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
