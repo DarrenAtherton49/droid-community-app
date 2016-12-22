@@ -51,7 +51,7 @@ dependencies {
     compile "io.reactivex:rxjava:$rootProject.rxJavaVersion"
     compile "io.reactivex:rxandroid:$rootProject.rxAndroidVersion"
 
-    //compile "com.google.code.gson:gson:$rootProject.gsonVersion"
+    //compile "com.squareup.retrofit2:converter-moshi:$rootProject.moshiVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okHttpVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"

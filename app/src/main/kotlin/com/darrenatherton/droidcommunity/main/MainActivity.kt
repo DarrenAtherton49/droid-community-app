@@ -11,7 +11,7 @@ import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.base.presentation.BaseActivity
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerMainViewComponent
 import com.darrenatherton.droidcommunity.common.injection.component.MainViewComponent
-import com.darrenatherton.droidcommunity.feed.FeedItem
+import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedItem
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
@@ -120,5 +120,17 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
 
     override fun showFeedItem(feedItem: FeedItem) {
         navigator.showFeedItem(this, feedItem)
+    }
+
+    /**
+     * Finish activity when reaching the last fragment.
+     */
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager;
+        if (fragmentManager.backStackEntryCount > 1) {
+            fragmentManager.popBackStack();
+        } else {
+            finish();
+        }
     }
 }

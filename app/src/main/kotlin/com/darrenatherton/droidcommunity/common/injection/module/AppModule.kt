@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.darrenatherton.droidcommunity.common.navigation.Navigator
 import com.darrenatherton.droidcommunity.common.threading.*
+import com.darrenatherton.droidcommunity.feed.reddit.service.RedditService
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
@@ -40,4 +41,6 @@ class AppModule(private val application: Application) {
             rxComputationThread: RxComputationExecutor): BackgroundExecutor {
         return rxComputationThread
     }
+
+    @Provides @Singleton internal fun provideRedditService() = RedditService.Factory.create()
 }

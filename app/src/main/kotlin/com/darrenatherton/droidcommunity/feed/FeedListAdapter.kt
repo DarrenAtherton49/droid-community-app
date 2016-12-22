@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
+import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedItem
 import java.util.*
 
 @PerScreen

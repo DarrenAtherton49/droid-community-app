@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.common.util.showFragment
 import com.darrenatherton.droidcommunity.feed.FeedFragment
-import com.darrenatherton.droidcommunity.feed.FeedItem
+import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedItem
 import javax.inject.Inject
 import javax.inject.Singleton
 

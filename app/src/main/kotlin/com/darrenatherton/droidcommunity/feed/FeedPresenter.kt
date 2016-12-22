@@ -3,6 +3,7 @@ package com.darrenatherton.droidcommunity.feed
 import com.darrenatherton.droidcommunity.base.presentation.BasePresenter
 import com.darrenatherton.droidcommunity.base.presentation.BaseView
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
+import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedItem
 import javax.inject.Inject
 
 @PerScreen
