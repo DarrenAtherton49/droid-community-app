@@ -8,5 +8,5 @@ import dagger.Provides
 @Module
 class FeedModule {
 
-    @Provides @PerScreen internal fun provideListFeedAdapter() = FeedListAdapter()
+    @Provides @PerScreen internal fun provideFeedListAdapter() = FeedListAdapter()
 }

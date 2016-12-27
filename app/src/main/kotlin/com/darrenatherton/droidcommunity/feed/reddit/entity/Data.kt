@@ -7,7 +7,8 @@ data class RedditResponse<out T>(val data: T)
 
 data class RedditObjectWrapper(val kind: RedditType, val data: JsonElement)
 
-enum class RedditType private constructor(val derivedClass: Class<*>) {
+//todo change to sealed class?
+enum class RedditType(val derivedClass: Class<*>) {
     t1(RedditComment::class.java),
     t3(RedditLink::class.java),
     Listing(RedditListing::class.java)
@@ -53,3 +54,21 @@ class RedditComment(
         val link_id: String = emptyString,
         val depth: Int = 0
 ) : RedditSubmission()
+
+//todo change to sealed class?
+enum class Subreddit(val label: String, val urlSuffix: String) {
+    ANDROIDDEV("/r/AndroidDev", "androiddev"),
+    ANDROID("/r/Android", "android"),
+    ANDROIDAPPS("/r/AndroidApps", "androidapps"),
+    KOTLIN("/r/Kotlin", "kotlin"),
+    JAVA("/r/Java", "java"),
+    MATERIAL_DESIGN("/r/MaterialDesign", "materialdesign")
+}
+
+enum class RedditFilterType(private val text: String) {
+    HOT("hot"),
+    NEW("new"),
+    TOP("top");
+
+    override fun toString() = text
+}

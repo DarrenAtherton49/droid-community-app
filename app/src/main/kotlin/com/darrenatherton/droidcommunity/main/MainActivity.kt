@@ -3,6 +3,7 @@ package com.darrenatherton.droidcommunity.main
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -11,7 +12,22 @@ import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.base.presentation.BaseActivity
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerMainViewComponent
 import com.darrenatherton.droidcommunity.common.injection.component.MainViewComponent
+import com.darrenatherton.droidcommunity.common.threading.AndroidUiExecutor
+import com.darrenatherton.droidcommunity.common.threading.RxIoExecutor
 import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedItem
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditFilterType
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditLink
+import com.darrenatherton.droidcommunity.feed.reddit.entity.Subreddit
+import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditNetworkResponseMapper
+import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditDataRepository
+import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditRepository
+import com.darrenatherton.droidcommunity.feed.reddit.service.RedditService
+import com.darrenatherton.droidcommunity.feed.reddit.usecase.GetPosts
+import rx.Subscriber
+import rx.android.schedulers.AndroidSchedulers
+import rx.functions.Action0
+import rx.functions.Action1
+import rx.schedulers.Schedulers
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
@@ -37,6 +53,47 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         setSupportActionBar(toolbar)
 
         initBottomNav()
+
+        val repo: RedditRepository = RedditDataRepository(RedditService.Factory.create(), RedditNetworkResponseMapper())
+        repo.getLinksForSubreddit(Subreddit.ANDROIDDEV, RedditFilterType.HOT)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { onNext -> Log.d("main", "result: " + onNext.forEach { Log.d("main", it.title) })},
+                        { onError -> Log.d("main", "error: " + onError)},
+                        { Log.d("main", "onComplete")}
+                )
+
+        //todo find way to call usecase.execute with the lambda syntax above
+        val getPosts: GetPosts = GetPosts(AndroidUiExecutor(), RxIoExecutor(), repo)
+        getPosts.execute(object : Action1<List<RedditLink>> {
+            override fun call(t: List<RedditLink>?) {
+
+            }
+        }, onError = object : Action1<Throwable> {
+            override fun call(t: Throwable?) {
+
+            }
+        }, onCompleted = object : Action0 {
+            override fun call() {
+
+            }
+        })
+    }
+
+    class Sub : Subscriber<List<RedditLink>>() {
+
+        override fun onCompleted() {
+
+        }
+
+        override fun onNext(t: List<RedditLink>?) {
+
+        }
+
+        override fun onError(e: Throwable?) {
+
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
