@@ -8,8 +8,6 @@ import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditLink
 import com.darrenatherton.droidcommunity.feed.reddit.entity.Subreddit
 import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditRepository
 import rx.Observable
-import rx.functions.Action0
-import rx.functions.Action1
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -19,9 +17,9 @@ class GetPosts @Inject constructor(
         private val redditRepository: RedditRepository
 ) : ReactiveUseCase<List<RedditLink>>(uiExecutor, backgroundExecutor) {
 
-    fun execute(onNext: Action1<List<RedditLink>>,
-                onError: Action1<Throwable>,
-                onCompleted: Action0) {
+    fun execute(onNext: (List<RedditLink>) -> Unit,
+                onError: (Throwable) -> Unit,
+                onCompleted: () -> Unit) {
         super.executeUseCase(onNext, onError, onCompleted)
     }
 

@@ -15,19 +15,11 @@ import com.darrenatherton.droidcommunity.common.injection.component.MainViewComp
 import com.darrenatherton.droidcommunity.common.threading.AndroidUiExecutor
 import com.darrenatherton.droidcommunity.common.threading.RxIoExecutor
 import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedItem
-import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditFilterType
-import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditLink
-import com.darrenatherton.droidcommunity.feed.reddit.entity.Subreddit
 import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditNetworkResponseMapper
 import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditDataRepository
 import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditRepository
 import com.darrenatherton.droidcommunity.feed.reddit.service.RedditService
 import com.darrenatherton.droidcommunity.feed.reddit.usecase.GetPosts
-import rx.Subscriber
-import rx.android.schedulers.AndroidSchedulers
-import rx.functions.Action0
-import rx.functions.Action1
-import rx.schedulers.Schedulers
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
@@ -55,45 +47,13 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         initBottomNav()
 
         val repo: RedditRepository = RedditDataRepository(RedditService.Factory.create(), RedditNetworkResponseMapper())
-        repo.getLinksForSubreddit(Subreddit.ANDROIDDEV, RedditFilterType.HOT)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { onNext -> Log.d("main", "result: " + onNext.forEach { Log.d("main", it.title) })},
-                        { onError -> Log.d("main", "error: " + onError)},
-                        { Log.d("main", "onComplete")}
-                )
-
-        //todo find way to call usecase.execute with the lambda syntax above
         val getPosts: GetPosts = GetPosts(AndroidUiExecutor(), RxIoExecutor(), repo)
-        getPosts.execute(object : Action1<List<RedditLink>> {
-            override fun call(t: List<RedditLink>?) {
 
-            }
-        }, onError = object : Action1<Throwable> {
-            override fun call(t: Throwable?) {
-
-            }
-        }, onCompleted = object : Action0 {
-            override fun call() {
-
-            }
-        })
-    }
-
-    class Sub : Subscriber<List<RedditLink>>() {
-
-        override fun onCompleted() {
-
-        }
-
-        override fun onNext(t: List<RedditLink>?) {
-
-        }
-
-        override fun onError(e: Throwable?) {
-
-        }
+        getPosts.execute(
+                onNext = { it.forEach { Log.d("darren", it.selftext) } },
+                onError = { Log.d("darren", it.message )},
+                onCompleted = { Log.d("darren", "onCompleted") }
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -183,11 +143,11 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
      * Finish activity when reaching the last fragment.
      */
     override fun onBackPressed() {
-        val fragmentManager = supportFragmentManager;
+        val fragmentManager = supportFragmentManager
         if (fragmentManager.backStackEntryCount > 1) {
-            fragmentManager.popBackStack();
+            fragmentManager.popBackStack()
         } else {
-            finish();
+            finish()
         }
     }
 }
