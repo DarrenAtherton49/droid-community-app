@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
-import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedItem
+import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedViewItem
 import java.util.*
 
 @PerScreen
-class FeedListAdapter constructor(private var feedItems: List<FeedItem> = Collections.emptyList()) :
+class FeedListAdapter constructor(private var feedViewItems: List<FeedViewItem> = Collections.emptyList()) :
         RecyclerView.Adapter<FeedListAdapter.FeedListViewHolder>() {
 
     private val onItemClickListeners: MutableList<OnItemClickListener> = ArrayList()
@@ -20,21 +20,21 @@ class FeedListAdapter constructor(private var feedItems: List<FeedItem> = Collec
     }
 
     override fun onBindViewHolder(holder: FeedListViewHolder, position: Int) {
-        val feedItem: FeedItem = getItem(position)
+        val feedViewItem: FeedViewItem = getItem(position)
     }
 
-    override fun getItemCount() = feedItems.size
+    override fun getItemCount() = feedViewItems.size
 
     override fun getItemViewType(position: Int): Int {
         return 0
     }
 
-    internal fun replaceData(newItems: List<FeedItem>) {
-        feedItems = newItems
+    internal fun replaceData(newViewItems: List<FeedViewItem>) {
+        feedViewItems = newViewItems
         notifyDataSetChanged()
     }
 
-    private fun getItem(position: Int) = feedItems[position]
+    private fun getItem(position: Int) = feedViewItems[position]
 
     class FeedListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -44,11 +44,11 @@ class FeedListAdapter constructor(private var feedItems: List<FeedItem> = Collec
         onItemClickListeners.add(onItemClickListener)
     }
 
-    private fun notifyOnFeedItemClicked(feedItem: FeedItem) {
-        onItemClickListeners.forEach { it.onFeedItemClicked(feedItem) }
+    private fun notifyOnFeedItemClicked(feedViewItem: FeedViewItem) {
+        onItemClickListeners.forEach { it.onFeedItemClicked(feedViewItem) }
     }
 
     interface OnItemClickListener {
-        fun onFeedItemClicked(feedItem: FeedItem)
+        fun onFeedItemClicked(feedViewItem: FeedViewItem)
     }
 }

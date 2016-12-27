@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.darrenatherton.droidcommunity.common.navigation.Navigator
 import com.darrenatherton.droidcommunity.common.threading.*
+import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditDomainMapper
 import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditNetworkResponseMapper
 import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditDataRepository
 import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditRepository
@@ -48,7 +49,8 @@ class AppModule(private val application: Application) {
     @Provides @Singleton internal fun provideRedditService() = RedditService.Factory.create()
 
     @Provides @Singleton internal fun provideRedditRepository(redditService: RedditService,
-                                                              redditResponseMapper: RedditNetworkResponseMapper): RedditRepository {
-        return RedditDataRepository(redditService, redditResponseMapper)
+                                                              networkResponseMapper: RedditNetworkResponseMapper,
+                                                              redditDomainMapper: RedditDomainMapper): RedditRepository {
+        return RedditDataRepository(redditService, networkResponseMapper, redditDomainMapper)
     }
 }

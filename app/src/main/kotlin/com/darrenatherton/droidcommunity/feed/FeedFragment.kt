@@ -12,14 +12,14 @@ import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.base.presentation.BaseFragment
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerFeedComponent
 import com.darrenatherton.droidcommunity.common.injection.module.FeedModule
-import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedItem
+import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedViewItem
 import javax.inject.Inject
 
 class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(),
         FeedPresenter.View, FeedListAdapter.OnItemClickListener {
 
     interface FeedListNavListener {
-        fun showFeedItem(feedItem: FeedItem)
+        fun showFeedItem(feedViewItem: FeedViewItem)
     }
 
     override val passiveView = this
@@ -63,7 +63,7 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(),
         recyclerView.adapter = feedListAdapter
     }
 
-    override fun onFeedItemClicked(feedItem: FeedItem) {
+    override fun onFeedItemClicked(feedViewItem: FeedViewItem) {
 
     }
 
@@ -84,7 +84,7 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(),
     // View functions
     //===================================================================================
 
-    override fun showFeedItem(feedItem: FeedItem) {
-        feedListNavListener?.showFeedItem(feedItem)
+    override fun showFeedItem(feedViewItem: FeedViewItem) {
+        feedListNavListener?.showFeedItem(feedViewItem)
     }
 }

@@ -23,7 +23,7 @@ internal inline fun <T : Fragment> AppCompatActivity.showFragment(containerId: I
 
 private fun clearBackStack(fragmentManager: FragmentManager) {
     if (fragmentManager.backStackEntryCount > 0) {
-        val first = fragmentManager.getBackStackEntryAt(0);
-        fragmentManager.popBackStack(first.id, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        val first = fragmentManager.getBackStackEntryAt(0)
+        fragmentManager.popBackStack(first.id, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 }

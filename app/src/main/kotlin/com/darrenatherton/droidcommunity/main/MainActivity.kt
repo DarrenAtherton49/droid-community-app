@@ -14,7 +14,8 @@ import com.darrenatherton.droidcommunity.common.injection.component.DaggerMainVi
 import com.darrenatherton.droidcommunity.common.injection.component.MainViewComponent
 import com.darrenatherton.droidcommunity.common.threading.AndroidUiExecutor
 import com.darrenatherton.droidcommunity.common.threading.RxIoExecutor
-import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedItem
+import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedViewItem
+import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditDomainMapper
 import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditNetworkResponseMapper
 import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditDataRepository
 import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditRepository
@@ -46,11 +47,11 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
 
         initBottomNav()
 
-        val repo: RedditRepository = RedditDataRepository(RedditService.Factory.create(), RedditNetworkResponseMapper())
+        val repo: RedditRepository = RedditDataRepository(RedditService.Factory.create(), RedditNetworkResponseMapper(), RedditDomainMapper())
         val getPosts: GetPosts = GetPosts(AndroidUiExecutor(), RxIoExecutor(), repo)
 
         getPosts.execute(
-                onNext = { it.forEach { Log.d("darren", it.selftext) } },
+                onNext = { it.forEach { Log.d("darren", it.title) } },
                 onError = { Log.d("darren", it.message )},
                 onCompleted = { Log.d("darren", "onCompleted") }
         )
@@ -135,8 +136,8 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
     // Navigation functions from fragments
     //===================================================================================
 
-    override fun showFeedItem(feedItem: FeedItem) {
-        navigator.showFeedItem(this, feedItem)
+    override fun showFeedItem(feedViewItem: FeedViewItem) {
+        navigator.showFeedItem(this, feedViewItem)
     }
 
     /**
