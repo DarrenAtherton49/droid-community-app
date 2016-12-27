@@ -12,7 +12,7 @@ import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.base.presentation.BaseFragment
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerFeedComponent
 import com.darrenatherton.droidcommunity.common.injection.module.FeedModule
-import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedViewItem
+import com.darrenatherton.droidcommunity.feed.entity.FeedViewItem
 import javax.inject.Inject
 
 class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(),

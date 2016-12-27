@@ -6,7 +6,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RxComputationExecutor @Inject constructor() : BackgroundExecutor {
+class RxComputationExecutor @Inject constructor() : ComputationExecutor {
 
     override val scheduler: Scheduler
         get() = Schedulers.computation()

@@ -51,7 +51,6 @@ dependencies {
     compile "io.reactivex:rxjava:$rootProject.rxJavaVersion"
     compile "io.reactivex:rxandroid:$rootProject.rxAndroidVersion"
 
-    //compile "com.squareup.retrofit2:converter-moshi:$rootProject.moshiVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okHttpVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
@@ -62,6 +61,10 @@ dependencies {
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     provided "org.glassfish:javax.annotation:10.0-b28"
+
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.leakCanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
 
     compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.espressoVersion"
     testCompile "junit:junit:$rootProject.junitVersion"

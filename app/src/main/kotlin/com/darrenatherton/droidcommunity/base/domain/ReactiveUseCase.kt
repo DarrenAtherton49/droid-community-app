@@ -1,12 +1,12 @@
 package com.darrenatherton.droidcommunity.base.domain
 
 import com.darrenatherton.droidcommunity.common.threading.BackgroundExecutor
-import com.darrenatherton.droidcommunity.common.threading.UiExecutor
+import com.darrenatherton.droidcommunity.common.threading.UiThread
 import rx.Observable
 import rx.subscriptions.Subscriptions
 
 abstract class ReactiveUseCase<ObservableType> (
-        private val uiExecutor: UiExecutor,
+        private val uiExecutor: UiThread,
         private val backgroundExecutor: BackgroundExecutor) {
 
     private var subscription = Subscriptions.empty()

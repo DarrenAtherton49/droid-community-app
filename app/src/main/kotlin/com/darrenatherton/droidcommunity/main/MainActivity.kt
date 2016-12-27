@@ -3,7 +3,6 @@ package com.darrenatherton.droidcommunity.main
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -12,15 +11,7 @@ import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.base.presentation.BaseActivity
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerMainViewComponent
 import com.darrenatherton.droidcommunity.common.injection.component.MainViewComponent
-import com.darrenatherton.droidcommunity.common.threading.AndroidUiExecutor
-import com.darrenatherton.droidcommunity.common.threading.RxIoExecutor
-import com.darrenatherton.droidcommunity.feed.reddit.entity.FeedViewItem
-import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditDomainMapper
-import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditNetworkResponseMapper
-import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditDataRepository
-import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditRepository
-import com.darrenatherton.droidcommunity.feed.reddit.service.RedditService
-import com.darrenatherton.droidcommunity.feed.reddit.usecase.GetPosts
+import com.darrenatherton.droidcommunity.feed.entity.FeedViewItem
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
@@ -46,15 +37,6 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         setSupportActionBar(toolbar)
 
         initBottomNav()
-
-        val repo: RedditRepository = RedditDataRepository(RedditService.Factory.create(), RedditNetworkResponseMapper(), RedditDomainMapper())
-        val getPosts: GetPosts = GetPosts(AndroidUiExecutor(), RxIoExecutor(), repo)
-
-        getPosts.execute(
-                onNext = { it.forEach { Log.d("darren", it.title) } },
-                onError = { Log.d("darren", it.message )},
-                onCompleted = { Log.d("darren", "onCompleted") }
-        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

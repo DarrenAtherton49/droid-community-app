@@ -1,8 +1,8 @@
 package com.darrenatherton.droidcommunity.feed.reddit.repository
 
-import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditFeedItem
-import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditFilterType
-import com.darrenatherton.droidcommunity.feed.reddit.entity.Subreddit
+import com.darrenatherton.droidcommunity.feed.entity.FeedItem
+import com.darrenatherton.droidcommunity.feed.reddit.data.RedditFilterType
+import com.darrenatherton.droidcommunity.feed.reddit.data.Subreddit
 import rx.Observable
 
 interface RedditRepository {
@@ -10,5 +10,5 @@ interface RedditRepository {
     /**
      * Get an [Observable] which will emit a List of Links for a subreddit
      */
-    fun getLinksForSubreddit(subreddit: Subreddit, filterType: RedditFilterType): Observable<List<RedditFeedItem>>
+    fun getLinksForSubreddit(subreddit: Subreddit, filterType: RedditFilterType): Observable<List<FeedItem.Reddit>>
 }

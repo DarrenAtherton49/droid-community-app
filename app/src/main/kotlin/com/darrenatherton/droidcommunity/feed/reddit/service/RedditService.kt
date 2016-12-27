@@ -1,9 +1,9 @@
 package com.darrenatherton.droidcommunity.feed.reddit.service
 
 import com.darrenatherton.droidcommunity.BuildConfig
-import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditListing
-import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditObject
-import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditResponse
+import com.darrenatherton.droidcommunity.feed.reddit.data.RedditListing
+import com.darrenatherton.droidcommunity.feed.reddit.data.RedditObject
+import com.darrenatherton.droidcommunity.feed.reddit.data.RedditResponse
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -1,4 +1,4 @@
-package com.darrenatherton.droidcommunity.feed.reddit.entity
+package com.darrenatherton.droidcommunity.feed.reddit.data
 
 import com.darrenatherton.droidcommunity.common.util.emptyString
 import com.google.gson.JsonElement
@@ -7,7 +7,6 @@ data class RedditResponse<out T>(val data: T)
 
 data class RedditObjectWrapper(val kind: RedditType, val data: JsonElement)
 
-//todo change to sealed class?
 enum class RedditType(val derivedClass: Class<*>) {
     t1(RedditComment::class.java),
     t3(RedditLink::class.java),
@@ -55,7 +54,6 @@ class RedditComment(
         val depth: Int = 0
 ) : RedditSubmission()
 
-//todo change to sealed class?
 enum class Subreddit(val label: String, val urlSuffix: String) {
     ANDROIDDEV("/r/AndroidDev", "androiddev"),
     ANDROID("/r/Android", "android"),
