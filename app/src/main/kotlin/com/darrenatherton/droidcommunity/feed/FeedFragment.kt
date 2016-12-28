@@ -84,7 +84,11 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(),
     // View functions
     //===================================================================================
 
-    override fun showFeedItem(feedViewItem: FeedViewItem) {
+    override fun showFeedItemsList(items: List<FeedViewItem>) {
+        feedListAdapter.replaceData(items)
+    }
+
+    override fun showFeedItemDetail(feedViewItem: FeedViewItem) {
         feedListNavListener?.showFeedItem(feedViewItem)
     }
 }

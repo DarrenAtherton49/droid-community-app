@@ -29,10 +29,14 @@ class FeedPresenter @Inject constructor(private val getPosts: GetPosts) : BasePr
     //===================================================================================
 
     private fun loadPosts() {
+        //todo show/hide progress/retry etc
+        //todo retrieve other subreddits based on selected options
+        //todo reddit/twitter items - full width, design posts = half width? Order them when combining
         getPosts.execute(
                 onNext = {
                     val list = PresentationMapper().convertFeedItemsDomainToPresentation(it)
                     list.forEach { Log.d("darren", it.title) }
+                    performViewAction { showFeedItemsList(list) }
                 },
                 onError = { Log.d("darren", it.message )},
                 onCompleted = { Log.d("darren", "onCompleted") }
@@ -44,7 +48,7 @@ class FeedPresenter @Inject constructor(private val getPosts: GetPosts) : BasePr
     //===================================================================================
 
     internal fun onFeedItemClicked(feedViewItem: FeedViewItem) {
-        performViewAction { showFeedItem(feedViewItem) }
+        performViewAction { showFeedItemDetail(feedViewItem) }
     }
 
     //===================================================================================
@@ -52,6 +56,7 @@ class FeedPresenter @Inject constructor(private val getPosts: GetPosts) : BasePr
     //===================================================================================
 
     interface View : BaseView {
-        fun showFeedItem(feedViewItem: FeedViewItem)
+        fun showFeedItemsList(items: List<FeedViewItem>)
+        fun showFeedItemDetail(feedViewItem: FeedViewItem)
     }
 }
