@@ -14,4 +14,7 @@
 
     <color name="bottom_nav">@color/black</color>
 
+    <color name="feed_item_background_reddit">#4CAF50</color>
+    <color name="feed_item_background_twitter">#03A9F4</color>
+
 </resources>

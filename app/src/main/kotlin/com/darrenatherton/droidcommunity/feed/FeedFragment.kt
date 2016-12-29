@@ -3,7 +3,7 @@ package com.darrenatherton.droidcommunity.feed
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +14,8 @@ import com.darrenatherton.droidcommunity.common.injection.component.DaggerFeedCo
 import com.darrenatherton.droidcommunity.common.injection.module.FeedModule
 import com.darrenatherton.droidcommunity.feed.entity.FeedViewItem
 import javax.inject.Inject
+
+
 
 class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(),
         FeedPresenter.View, FeedListAdapter.OnItemClickListener {
@@ -59,7 +61,7 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(),
     private fun initRecyclerView(rootView: View) {
         feedListAdapter.addOnItemClickListener(this)
         val recyclerView = rootView.findViewById(R.id.fragment_feed_recyclerview) as RecyclerView
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = feedListAdapter
     }
 
