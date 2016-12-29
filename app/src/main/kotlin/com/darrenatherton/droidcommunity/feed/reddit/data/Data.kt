@@ -33,6 +33,7 @@ open class RedditSubmission(
 
 class RedditLink(
         val domain: String,
+        val subreddit: String,
         val selftext_html: String,
         val selftext: String,
         val link_flair_text: String,
@@ -60,7 +61,18 @@ enum class Subreddit(val label: String, val urlSuffix: String) {
     ANDROIDAPPS("/r/AndroidApps", "androidapps"),
     KOTLIN("/r/Kotlin", "kotlin"),
     JAVA("/r/Java", "java"),
-    MATERIAL_DESIGN("/r/MaterialDesign", "materialdesign")
+    MATERIAL_DESIGN("/r/MaterialDesign", "materialdesign");
+
+    companion object {
+        fun getReadableLabelFromSuffix(suffix: String): String {
+            Subreddit.values().forEach {
+                if (it.urlSuffix.contentEquals(suffix)) {
+                    return it.label
+                }
+            }
+            return suffix
+        }
+    }
 }
 
 enum class RedditFilterType(private val text: String) {

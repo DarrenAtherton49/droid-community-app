@@ -12,7 +12,7 @@ sealed class FeedListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         fun bind(item: FeedViewItem.Reddit) {
             with(item) {
                 itemView.title_textview.text = title
-                itemView.subreddit_textview.text = title
+                itemView.subreddit_textview.text = subreddit
             }
         }
     }

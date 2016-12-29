@@ -2,6 +2,7 @@ package com.darrenatherton.droidcommunity.feed.mapper
 
 import com.darrenatherton.droidcommunity.feed.entity.FeedItem
 import com.darrenatherton.droidcommunity.feed.entity.FeedViewItem
+import com.darrenatherton.droidcommunity.feed.reddit.data.Subreddit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,6 +23,6 @@ class PresentationMapper @Inject constructor() {
     }
 
     private fun convertRedditItemToViewItem(item: FeedItem.Reddit): FeedViewItem.Reddit = with(item) {
-        FeedViewItem.Reddit(title)
+        FeedViewItem.Reddit(title, Subreddit.getReadableLabelFromSuffix(subreddit))
     }
 }
