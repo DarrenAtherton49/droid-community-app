@@ -5,4 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="material_keylines_8">8dp</dimen>
     <dimen name="material_keylines_16">16dp</dimen>
+    <dimen name="feed_margin_start_end">24dp</dimen>
 </resources>

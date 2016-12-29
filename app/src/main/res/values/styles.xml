@@ -6,7 +6,6 @@
         <item name="colorAccent">@color/material_accent</item>
         <item name="android:textColorPrimary">@color/material_text_primary</item>
         <item name="android:textColorSecondary">@color/material_text_secondary</item>
-        <item name="android:windowBackground">@android:color/white</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
