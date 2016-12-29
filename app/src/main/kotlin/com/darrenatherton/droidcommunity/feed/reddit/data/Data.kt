@@ -70,7 +70,7 @@ enum class Subreddit(val label: String, val urlSuffix: String) {
                     return it.label
                 }
             }
-            return suffix
+            return "/r/$suffix"
         }
     }
 }
