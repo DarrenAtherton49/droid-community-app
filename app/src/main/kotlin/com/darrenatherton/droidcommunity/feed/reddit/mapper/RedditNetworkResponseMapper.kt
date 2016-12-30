@@ -1,8 +1,8 @@
-package com.darrenatherton.droidcommunity.feed.mapper
+package com.darrenatherton.droidcommunity.feed.reddit.mapper
 
-import com.darrenatherton.droidcommunity.feed.reddit.data.RedditLink
-import com.darrenatherton.droidcommunity.feed.reddit.data.RedditListing
-import com.darrenatherton.droidcommunity.feed.reddit.data.RedditResponse
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditLink
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditListing
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,6 +18,8 @@ class RedditNetworkResponseMapper @Inject constructor() {
      * @return A list of {@link RedditListing}
      */
     internal fun convertLinksResponseToData(listingResponse: RedditResponse<RedditListing>): List<RedditLink> {
-        return listingResponse.data.children.map { it as RedditLink }
+        return listingResponse.data.children
+                .map { it as RedditLink }
+                .filter { !it.stickied } //todo instead of removing, store them and use in first item carousel?
     }
 }

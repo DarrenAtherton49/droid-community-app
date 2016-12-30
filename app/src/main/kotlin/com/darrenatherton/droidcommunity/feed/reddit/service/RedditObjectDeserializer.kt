@@ -1,8 +1,8 @@
 package com.darrenatherton.droidcommunity.feed.reddit.service
 
 import android.util.Log
-import com.darrenatherton.droidcommunity.feed.reddit.data.RedditObject
-import com.darrenatherton.droidcommunity.feed.reddit.data.RedditObjectWrapper
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditObject
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditObjectWrapper
 import com.google.gson.*
 import java.lang.reflect.Type
 

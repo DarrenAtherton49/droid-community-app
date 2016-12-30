@@ -11,7 +11,7 @@ import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.base.presentation.BaseActivity
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerMainViewComponent
 import com.darrenatherton.droidcommunity.common.injection.component.MainViewComponent
-import com.darrenatherton.droidcommunity.feed.entity.FeedViewItem
+import com.darrenatherton.droidcommunity.feed.shared.entity.FeedViewItem
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),

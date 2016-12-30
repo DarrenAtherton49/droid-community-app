@@ -1,4 +1,4 @@
-package com.darrenatherton.droidcommunity.feed.reddit.data
+package com.darrenatherton.droidcommunity.feed.reddit.entity
 
 import com.darrenatherton.droidcommunity.common.util.emptyString
 import com.google.gson.JsonElement
@@ -65,7 +65,7 @@ enum class Subreddit(val label: String, val urlSuffix: String) {
 
     companion object {
         fun getReadableLabelFromSuffix(suffix: String): String {
-            Subreddit.values().forEach {
+            values().forEach {
                 if (it.urlSuffix.contentEquals(suffix)) {
                     return it.label
                 }

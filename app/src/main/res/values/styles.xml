@@ -23,7 +23,7 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
-    <style name="RedditFeedItemCard" parent="Theme.AppCompat.Light">
+    <style name="FeedItemCard" parent="Theme.AppCompat.Light">
         <item name="cardCornerRadius">0dp</item>
         <item name="cardElevation">2dp</item>
         <item name="contentPaddingTop">24dp</item>

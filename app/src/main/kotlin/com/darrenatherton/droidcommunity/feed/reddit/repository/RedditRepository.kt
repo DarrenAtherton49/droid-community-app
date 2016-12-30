@@ -1,8 +1,8 @@
 package com.darrenatherton.droidcommunity.feed.reddit.repository
 
-import com.darrenatherton.droidcommunity.feed.entity.FeedItem
-import com.darrenatherton.droidcommunity.feed.reddit.data.RedditFilterType
-import com.darrenatherton.droidcommunity.feed.reddit.data.Subreddit
+import com.darrenatherton.droidcommunity.feed.shared.entity.FeedItem
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditFilterType
+import com.darrenatherton.droidcommunity.feed.reddit.entity.Subreddit
 import rx.Observable
 
 interface RedditRepository {

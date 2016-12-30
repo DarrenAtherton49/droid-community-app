@@ -1,9 +1,9 @@
 package com.darrenatherton.droidcommunity.feed.reddit.service
 
 import com.darrenatherton.droidcommunity.BuildConfig
-import com.darrenatherton.droidcommunity.feed.reddit.data.RedditListing
-import com.darrenatherton.droidcommunity.feed.reddit.data.RedditObject
-import com.darrenatherton.droidcommunity.feed.reddit.data.RedditResponse
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditListing
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditObject
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditResponse
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,6 +12,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 import rx.Observable
 import javax.inject.Singleton
 
@@ -21,7 +22,8 @@ interface RedditService {
     @GET("/r/{subreddit}/{filter_type}.json")
     fun getListingForSubreddit(
             @Path("subreddit") subreddit: String,
-            @Path("filter_type") filterType: String
+            @Path("filter_type") filterType: String,
+            @Query("limit") limit: Int
     ): Observable<RedditResponse<RedditListing>>
 
     object Factory {

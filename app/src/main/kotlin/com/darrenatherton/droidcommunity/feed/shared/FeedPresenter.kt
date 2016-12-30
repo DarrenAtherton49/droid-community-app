@@ -1,16 +1,18 @@
-package com.darrenatherton.droidcommunity.feed
+package com.darrenatherton.droidcommunity.feed.shared
 
 import android.util.Log
 import com.darrenatherton.droidcommunity.base.presentation.BasePresenter
 import com.darrenatherton.droidcommunity.base.presentation.BaseView
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
-import com.darrenatherton.droidcommunity.feed.entity.FeedViewItem
-import com.darrenatherton.droidcommunity.feed.mapper.PresentationMapper
 import com.darrenatherton.droidcommunity.feed.reddit.usecase.GetPosts
+import com.darrenatherton.droidcommunity.feed.shared.entity.FeedViewItem
+import com.darrenatherton.droidcommunity.feed.shared.mapper.PresentationMapper
 import javax.inject.Inject
 
 @PerScreen
-class FeedPresenter @Inject constructor(private val getPosts: GetPosts) : BasePresenter<FeedPresenter.View>() {
+class FeedPresenter @Inject constructor(private val getPosts: GetPosts,
+                                        private val presentationMapper: PresentationMapper)
+    : BasePresenter<FeedPresenter.View>() {
 
     //===================================================================================
     // View attach/detach
@@ -34,7 +36,7 @@ class FeedPresenter @Inject constructor(private val getPosts: GetPosts) : BasePr
         //todo reddit/twitter items - full width, design posts = half width? Order them when combining
         getPosts.execute(
                 onNext = {
-                    val list = PresentationMapper().convertFeedItemsDomainToPresentation(it)
+                    val list = PresentationMapper().convertAndSortForPresentation(it)
                     list.forEach { Log.d("darren", it.title) }
                     performViewAction { showFeedItemsList(list) }
                 },

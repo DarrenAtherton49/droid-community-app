@@ -1,11 +1,11 @@
-package com.darrenatherton.droidcommunity.feed
+package com.darrenatherton.droidcommunity.feed.shared
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
-import com.darrenatherton.droidcommunity.feed.entity.FeedViewItem
+import com.darrenatherton.droidcommunity.feed.shared.entity.FeedViewItem
 import java.util.*
 
 @PerScreen
@@ -18,6 +18,9 @@ class FeedListAdapter constructor(private var feedViewItems: List<FeedViewItem> 
         return when (viewType) {
             FeedViewItem.reddit ->  {
                 FeedListViewHolder.RedditItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_feed_reddit, parent, false))
+            }
+            FeedViewItem.twitter -> {
+                FeedListViewHolder.TwitterItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_feed_twitter, parent, false))
             }
             else -> {
                 FeedListViewHolder.SimpleItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_feed, parent, false))

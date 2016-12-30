@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
+    android:background="@color/feed_item_background_twitter"
     style="@style/FeedItemCard">
 
     <LinearLayout
@@ -20,6 +21,7 @@
             android:gravity="start|center_horizontal"
             android:textColor="@color/material_text_primary"
             android:textSize="@dimen/material_text_title"
+            android:text="TWITTER"
             android:layout_marginBottom="@dimen/material_keylines_8"/>
 
         <TextView

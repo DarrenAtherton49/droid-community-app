@@ -6,8 +6,8 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.darrenatherton.droidcommunity.common.navigation.Navigator
 import com.darrenatherton.droidcommunity.common.threading.*
-import com.darrenatherton.droidcommunity.feed.mapper.RedditDomainMapper
-import com.darrenatherton.droidcommunity.feed.mapper.RedditNetworkResponseMapper
+import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditDomainMapper
+import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditNetworkResponseMapper
 import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditDataRepository
 import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditRepository
 import com.darrenatherton.droidcommunity.feed.reddit.service.RedditService

@@ -1,7 +1,7 @@
-package com.darrenatherton.droidcommunity.feed.mapper
+package com.darrenatherton.droidcommunity.feed.reddit.mapper
 
-import com.darrenatherton.droidcommunity.feed.entity.FeedItem
-import com.darrenatherton.droidcommunity.feed.reddit.data.RedditLink
+import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditLink
+import com.darrenatherton.droidcommunity.feed.shared.entity.FeedItem
 import javax.inject.Inject
 import javax.inject.Singleton
 
