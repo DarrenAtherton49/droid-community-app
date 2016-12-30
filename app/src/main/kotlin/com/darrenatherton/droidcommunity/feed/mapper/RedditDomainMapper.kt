@@ -16,6 +16,6 @@ class RedditDomainMapper @Inject constructor() {
     }
 
     private fun convertLinkDataItemToDomain(link: RedditLink): FeedItem.Reddit = with(link) {
-        FeedItem.Reddit(title, subreddit)
+        FeedItem.Reddit(title, subreddit, author, "replace me", Integer.toString(num_comments))
     }
 }

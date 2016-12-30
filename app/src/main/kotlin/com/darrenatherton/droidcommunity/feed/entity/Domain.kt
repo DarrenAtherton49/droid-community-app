@@ -1,5 +1,9 @@
 package com.darrenatherton.droidcommunity.feed.entity
 
 sealed class FeedItem(val title: String) {
-    class Reddit(title: String, val subreddit: String) : FeedItem(title)
+    class Reddit(title: String,
+                 val subreddit: String,
+                 val author: String,
+                 val submitted: String,
+                 val numComments: String) : FeedItem(title)
 }

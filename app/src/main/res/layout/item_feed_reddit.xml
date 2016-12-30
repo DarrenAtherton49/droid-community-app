@@ -1,54 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:clickable="true"
-    android:background="@android:color/white"
-    android:foreground="?attr/selectableItemBackground">
-
-    <TextView
-        android:id="@+id/subreddit_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:gravity="end"
-        android:textColor="@color/material_text_secondary"/>
+    android:foreground="?attr/selectableItemBackground"
+    style="@style/RedditFeedItemCard">
 
     <LinearLayout
-        android:id="@+id/item_votes_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:gravity="center">
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/title_textview"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_arrow_up"/>
+            android:gravity="start|center_horizontal"
+            android:textColor="@color/material_text_primary"
+            android:textSize="@dimen/material_text_title"
+            android:layout_marginBottom="@dimen/material_keylines_8"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/author_when_textview"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_arrow_down"/>
+            android:gravity="start|center_horizontal"
+            android:textColor="@color/material_text_secondary"
+            android:textSize="@dimen/material_text_body1"
+            android:layout_marginBottom="@dimen/material_keylines_4"/>
+
+        <TextView
+            android:id="@+id/num_comments_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_horizontal"
+            android:textColor="@color/material_text_secondary"
+            android:textSize="@dimen/material_text_body1"
+            android:layout_marginBottom="@dimen/material_keylines_4"/>
+
+        <TextView
+            android:id="@+id/subreddit_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:textColor="@color/material_text_secondary"
+            android:textSize="@dimen/material_text_body1"/>
+
+        <View
+            style="@style/Divider"
+            android:layout_marginTop="@dimen/reddit_feed_item_card_bottom_padding"/>
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/title_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        android:layout_toEndOf="@+id/item_votes_layout"
-        android:layout_centerVertical="true"
-        android:textColor="@color/material_text_primary"
-        android:textSize="20sp"/>
-
-    <View style="@style/Divider"
-          android:layout_alignParentBottom="true"/>
-
-</RelativeLayout>
+</android.support.v7.widget.CardView>

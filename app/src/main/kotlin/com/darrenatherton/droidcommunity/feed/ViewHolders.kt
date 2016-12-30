@@ -13,6 +13,8 @@ sealed class FeedListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
             with(item) {
                 itemView.title_textview.text = title
                 itemView.subreddit_textview.text = subreddit
+                itemView.author_when_textview.text = author //todo concatenate 'submitted' - e.g. 10h ago
+                itemView.num_comments_textview.text = numComments //todo concatenate 'comments' to number
             }
         }
     }

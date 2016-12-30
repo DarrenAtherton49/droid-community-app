@@ -23,6 +23,12 @@ class PresentationMapper @Inject constructor() {
     }
 
     private fun convertRedditItemToViewItem(item: FeedItem.Reddit): FeedViewItem.Reddit = with(item) {
-        FeedViewItem.Reddit(title, Subreddit.getReadableLabelFromSuffix(subreddit))
+        FeedViewItem.Reddit(
+                title,
+                Subreddit.getReadableLabelFromSuffix(subreddit),
+                author,
+                submitted,
+                numComments
+        )
     }
 }
