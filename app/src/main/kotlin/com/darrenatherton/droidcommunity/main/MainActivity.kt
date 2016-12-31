@@ -11,7 +11,7 @@ import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.base.presentation.BaseActivity
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerMainViewComponent
 import com.darrenatherton.droidcommunity.common.injection.component.MainViewComponent
-import com.darrenatherton.droidcommunity.feed.shared.entity.FeedViewItem
+import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewGroupItem
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
@@ -118,8 +118,8 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
     // Navigation functions from fragments
     //===================================================================================
 
-    override fun showFeedItem(feedViewItem: FeedViewItem) {
-        navigator.showFeedItem(this, feedViewItem)
+    override fun showFeedItem(feedViewGroupItem: FeedViewGroupItem) {
+        navigator.showFeedItem(this, feedViewGroupItem)
     }
 
     /**

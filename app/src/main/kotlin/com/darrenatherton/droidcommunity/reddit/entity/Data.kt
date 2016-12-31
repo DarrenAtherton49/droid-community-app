@@ -1,4 +1,4 @@
-package com.darrenatherton.droidcommunity.feed.reddit.entity
+package com.darrenatherton.droidcommunity.reddit.entity
 
 import com.darrenatherton.droidcommunity.common.util.emptyString
 import com.google.gson.JsonElement

@@ -1,4 +1,4 @@
-package com.darrenatherton.droidcommunity.feed.reddit.service
+package com.darrenatherton.droidcommunity.reddit.service
 
 import okhttp3.Interceptor
 import okhttp3.Response

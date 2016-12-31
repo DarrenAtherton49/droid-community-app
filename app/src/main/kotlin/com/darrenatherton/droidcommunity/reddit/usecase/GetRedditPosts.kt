@@ -1,19 +1,19 @@
-package com.darrenatherton.droidcommunity.feed.reddit.usecase
+package com.darrenatherton.droidcommunity.reddit.usecase
 
 import com.darrenatherton.droidcommunity.base.domain.ReactiveUseCaseChild
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
-import com.darrenatherton.droidcommunity.feed.reddit.entity.RedditFilterType
-import com.darrenatherton.droidcommunity.feed.reddit.entity.Subreddit
-import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditRepository
-import com.darrenatherton.droidcommunity.feed.shared.entity.FeedItem
+import com.darrenatherton.droidcommunity.reddit.entity.RedditFilterType
+import com.darrenatherton.droidcommunity.reddit.entity.RedditListingItem
+import com.darrenatherton.droidcommunity.reddit.entity.Subreddit
+import com.darrenatherton.droidcommunity.reddit.repository.RedditRepository
 import rx.Observable
 import javax.inject.Inject
 
 @PerScreen
 class GetRedditPosts @Inject constructor(private val redditRepository: RedditRepository)
-    : ReactiveUseCaseChild<List<FeedItem.Reddit>>() {
+    : ReactiveUseCaseChild<List<RedditListingItem>>() {
 
-    override fun observable(): Observable<List<FeedItem.Reddit>> {
+    override fun observable(): Observable<List<RedditListingItem>> {
 
         //todo get subreddit filter list from preferences and delete hard coded stuff below
 

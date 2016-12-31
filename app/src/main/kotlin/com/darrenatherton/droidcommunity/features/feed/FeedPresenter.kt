@@ -1,17 +1,17 @@
-package com.darrenatherton.droidcommunity.feed.shared
+package com.darrenatherton.droidcommunity.features.feed
 
 import android.util.Log
 import com.darrenatherton.droidcommunity.base.presentation.BasePresenter
 import com.darrenatherton.droidcommunity.base.presentation.BaseView
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
-import com.darrenatherton.droidcommunity.feed.reddit.usecase.GetPosts
-import com.darrenatherton.droidcommunity.feed.shared.entity.FeedViewItem
-import com.darrenatherton.droidcommunity.feed.shared.mapper.PresentationMapper
+import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewGroupItem
+import com.darrenatherton.droidcommunity.features.feed.mapper.RedditFeedPresentationMapper
+import com.darrenatherton.droidcommunity.features.feed.usecase.GetFeedItemGroups
 import javax.inject.Inject
 
 @PerScreen
-class FeedPresenter @Inject constructor(private val getPosts: GetPosts,
-                                        private val presentationMapper: PresentationMapper)
+class FeedPresenter @Inject constructor(private val getFeedItemGroups: GetFeedItemGroups,
+                                        private val presentationMapper: RedditFeedPresentationMapper)
     : BasePresenter<FeedPresenter.View>() {
 
     //===================================================================================
@@ -19,28 +19,26 @@ class FeedPresenter @Inject constructor(private val getPosts: GetPosts,
     //===================================================================================
 
     override fun onViewAttached() {
-        loadPosts()
+        loadFeed()
     }
 
     override fun onViewDetached() {
-        getPosts.unsubscribe()
+        getFeedItemGroups.unsubscribe()
     }
 
     //===================================================================================
     // Domain actions to execute
     //===================================================================================
 
-    private fun loadPosts() {
+    private fun loadFeed() {
         //todo show/hide progress/retry etc
-        //todo retrieve other subreddits based on selected options
-        //todo reddit/twitter items - full width, design posts = half width? Order them when combining
-        getPosts.execute(
+        getFeedItemGroups.execute(
                 onNext = {
-                    val list = PresentationMapper().convertAndSortForPresentation(it)
+                    val list = presentationMapper.convertSubscriptionsToFeedItemGroups(it)
                     list.forEach { Log.d("darren", it.title) }
                     performViewAction { showFeedItemsList(list) }
                 },
-                onError = { Log.d("darren", it.message )},
+                onError = { Log.d("darren", it.message ) },
                 onCompleted = { Log.d("darren", "onCompleted") }
         )
     }
@@ -49,8 +47,8 @@ class FeedPresenter @Inject constructor(private val getPosts: GetPosts,
     // Actions forwarded from view
     //===================================================================================
 
-    internal fun onFeedItemClicked(feedViewItem: FeedViewItem) {
-        performViewAction { showFeedItemDetail(feedViewItem) }
+    internal fun onFeedItemClicked(feedViewGroupItem: FeedViewGroupItem) {
+        performViewAction { showFeedItemDetail(feedViewGroupItem) }
     }
 
     //===================================================================================
@@ -58,7 +56,7 @@ class FeedPresenter @Inject constructor(private val getPosts: GetPosts,
     //===================================================================================
 
     interface View : BaseView {
-        fun showFeedItemsList(items: List<FeedViewItem>)
-        fun showFeedItemDetail(feedViewItem: FeedViewItem)
+        fun showFeedItemsList(groupItems: List<FeedViewGroupItem>)
+        fun showFeedItemDetail(feedViewGroupItem: FeedViewGroupItem)
     }
 }

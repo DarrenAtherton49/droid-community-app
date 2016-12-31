@@ -4,13 +4,15 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import com.darrenatherton.droidcommunity.account.repository.AccountDataRepository
+import com.darrenatherton.droidcommunity.account.repository.AccountRepository
 import com.darrenatherton.droidcommunity.common.navigation.Navigator
 import com.darrenatherton.droidcommunity.common.threading.*
-import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditDomainMapper
-import com.darrenatherton.droidcommunity.feed.reddit.mapper.RedditNetworkResponseMapper
-import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditDataRepository
-import com.darrenatherton.droidcommunity.feed.reddit.repository.RedditRepository
-import com.darrenatherton.droidcommunity.feed.reddit.service.RedditService
+import com.darrenatherton.droidcommunity.reddit.mapper.RedditDomainMapper
+import com.darrenatherton.droidcommunity.reddit.mapper.RedditNetworkResponseMapper
+import com.darrenatherton.droidcommunity.reddit.repository.RedditDataRepository
+import com.darrenatherton.droidcommunity.reddit.repository.RedditRepository
+import com.darrenatherton.droidcommunity.reddit.service.RedditService
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -51,5 +53,9 @@ class AppModule(private val application: Application) {
                                                               networkResponseMapper: RedditNetworkResponseMapper,
                                                               redditDomainMapper: RedditDomainMapper): RedditRepository {
         return RedditDataRepository(redditService, networkResponseMapper, redditDomainMapper)
+    }
+
+    @Provides @Singleton internal fun provideAccountRepository(): AccountRepository {
+        return AccountDataRepository()
     }
 }

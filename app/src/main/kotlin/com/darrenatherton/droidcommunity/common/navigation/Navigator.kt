@@ -3,8 +3,8 @@ package com.darrenatherton.droidcommunity.common.navigation
 import android.support.v7.app.AppCompatActivity
 import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.common.util.showFragment
-import com.darrenatherton.droidcommunity.feed.shared.FeedFragment
-import com.darrenatherton.droidcommunity.feed.shared.entity.FeedViewItem
+import com.darrenatherton.droidcommunity.features.feed.FeedFragment
+import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewGroupItem
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,7 +21,7 @@ class Navigator @Inject constructor() {
         }
     }
 
-    internal fun showFeedItem(activity: AppCompatActivity, feedViewItem: FeedViewItem) {
+    internal fun showFeedItem(activity: AppCompatActivity, feedViewItem: FeedViewGroupItem) {
 
     }
 }

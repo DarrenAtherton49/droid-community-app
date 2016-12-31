@@ -1,9 +1,9 @@
-package com.darrenatherton.droidcommunity.feed.shared
+package com.darrenatherton.droidcommunity.features.feed
 
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +12,15 @@ import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.base.presentation.BaseFragment
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerFeedComponent
 import com.darrenatherton.droidcommunity.common.injection.module.FeedModule
-import com.darrenatherton.droidcommunity.feed.shared.entity.FeedViewItem
+import com.darrenatherton.droidcommunity.features.feed.adapter.FeedListAdapter
+import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewGroupItem
 import javax.inject.Inject
 
 class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPresenter.View,
         FeedListAdapter.OnItemClickListener {
 
     interface FeedListNavListener {
-        fun showFeedItem(feedViewItem: FeedViewItem)
+        fun showFeedItem(feedViewGroupItem: FeedViewGroupItem)
     }
 
     override val passiveView = this
@@ -35,7 +36,7 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is FeedFragment.FeedListNavListener) {
+        if (context is FeedListNavListener) {
             feedListNavListener = context
         }
     }
@@ -56,20 +57,14 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
         this.feedListNavListener = null
     }
 
-    private fun initRecyclerView(rootView: android.view.View) {
+    private fun initRecyclerView(rootView: View) {
         feedListAdapter.addOnItemClickListener(this)
         val recyclerView = rootView.findViewById(R.id.fragment_feed_recyclerview) as RecyclerView
-        val layoutManager = GridLayoutManager(context, 2)
-        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (position % 3 == 0) 2 else 1
-            }
-        }
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = feedListAdapter
     }
 
-    override fun onFeedItemClicked(feedViewItem: FeedViewItem) {
+    override fun onFeedItemClicked(feedViewGroupItem: FeedViewGroupItem) {
 
     }
 
@@ -90,11 +85,11 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
     // View functions
     //===================================================================================
 
-    override fun showFeedItemsList(items: List<FeedViewItem>) {
-        feedListAdapter.replaceData(items)
+    override fun showFeedItemsList(groupItems: List<FeedViewGroupItem>) {
+        feedListAdapter.replaceData(groupItems)
     }
 
-    override fun showFeedItemDetail(feedViewItem: FeedViewItem) {
-        feedListNavListener?.showFeedItem(feedViewItem)
+    override fun showFeedItemDetail(feedViewGroupItem: FeedViewGroupItem) {
+        feedListNavListener?.showFeedItem(feedViewGroupItem)
     }
 }
