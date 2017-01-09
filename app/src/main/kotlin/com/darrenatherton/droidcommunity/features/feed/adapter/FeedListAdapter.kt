@@ -19,7 +19,7 @@ class FeedListAdapter constructor(private var feedViewGroupItems: List<FeedViewG
         return when (viewType) {
             FeedViewGroupItem.redditItemGroup ->  {
                 //todo inflate layout representing reddit tile group
-                FeedListViewHolder.RedditGroup(LayoutInflater.from(parent.context).inflate(R.layout.item_feed_reddit, parent, false))
+                FeedListViewHolder.RedditGroup(LayoutInflater.from(parent.context).inflate(R.layout.item_feed_group_reddit, parent, false))
             }
             FeedViewGroupItem.twitterItemGroup -> {
                 //todo inflate layout representing twitter tile group

@@ -85,7 +85,7 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
     // View functions
     //===================================================================================
 
-    override fun showFeedItemsList(groupItems: List<FeedViewGroupItem>) {
+    override fun showFeedItemGroups(groupItems: List<FeedViewGroupItem>) {
         feedListAdapter.replaceData(groupItems)
     }
 

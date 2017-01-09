@@ -3,6 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Just for reference -->
     <dimen name="material_keylines_4">4dp</dimen>
     <dimen name="material_keylines_8">8dp</dimen>
     <dimen name="material_keylines_16">16dp</dimen>
@@ -20,6 +22,8 @@
     <dimen name="material_text_display3">56sp</dimen>
     <dimen name="material_text_display4">112sp</dimen>
 
-    <dimen name="reddit_feed_item_card_bottom_padding">24dp</dimen>
+    <!-- Feed List Feature -->
+    <dimen name="feed_item_group_header_height">112dp</dimen>
+    <dimen name="feed_item_group_header_padding_top">24dp</dimen>
 
 </resources>

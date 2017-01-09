@@ -5,8 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:clickable="true"
-    android:foreground="?attr/selectableItemBackground"
-    android:background="@color/feed_item_background_twitter"
     style="@style/FeedItemCard">
 
     <LinearLayout
@@ -14,14 +12,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <FrameLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/feed_item_group_header_height"
+            android:paddingStart="@dimen/material_keylines_16"
+            android:paddingEnd="@dimen/material_keylines_16"
+            android:paddingTop="@dimen/feed_item_group_header_padding_top"
+            android:foreground="?android:selectableItemBackground">
+
+        </FrameLayout>
+
         <TextView
             android:id="@+id/title_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start|center_horizontal"
-            android:textColor="@color/material_text_primary"
-            android:textSize="@dimen/material_text_title"
-            android:text="TWITTER"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_marginBottom="@dimen/material_keylines_8"/>
 
         <TextView
