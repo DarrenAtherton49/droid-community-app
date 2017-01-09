@@ -34,8 +34,8 @@ abstract class BaseFragment<View: BaseView, out Presenter : BasePresenter<View>>
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         presenter.viewDetached()
+        super.onDestroyView()
     }
 
     protected fun act() = activity as AppCompatActivity
