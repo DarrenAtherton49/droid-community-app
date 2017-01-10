@@ -48,7 +48,7 @@ class RedditComment(
         val replies: RedditObject? = null,
         val subreddit_id: String = emptyString,
         val parent_id: String = emptyString,
-        val controvesiality: Int = 0,
+        val controversiality: Int = 0,
         val body: String = emptyString,
         val body_html: String = emptyString,
         val link_id: String = emptyString,
