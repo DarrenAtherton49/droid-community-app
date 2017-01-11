@@ -11,15 +11,15 @@ import javax.inject.Inject
 
 @PerScreen
 class GetFeedItemGroups @Inject constructor(
-        uiExecutor: UiThread,
+        uiThread: UiThread,
         ioExecutor: IoExecutor,
         private val accountRepository: AccountRepository
-) : ReactiveUseCase<List<Subscription>>(uiExecutor, ioExecutor) {
+) : ReactiveUseCase<List<Subscription>>(uiThread, ioExecutor) {
 
     fun execute(onNext: (List<Subscription>) -> Unit,
                 onError: (Throwable) -> Unit,
-                onCompleted: () -> Unit) {
-        super.executeUseCase(onNext, onError, onCompleted)
+                onCompleted: () -> Unit): rx.Subscription {
+        return super.executeUseCase(onNext, onError, onCompleted)
     }
 
     override fun useCaseObservable(): Observable<List<Subscription>> {

@@ -23,7 +23,7 @@ class FeedPresenter @Inject constructor(private val getFeedItemGroups: GetFeedIt
     }
 
     override fun onViewDetached() {
-        getFeedItemGroups.unsubscribe()
+
     }
 
     //===================================================================================
@@ -32,15 +32,18 @@ class FeedPresenter @Inject constructor(private val getFeedItemGroups: GetFeedIt
 
     private fun loadFeed() {
         //todo show/hide progress/retry etc
-        getFeedItemGroups.execute(
-                onNext = {
-                    val list = presentationMapper.convertSubscriptionsToFeedItemGroups(it)
-                    list.forEach { Log.d("darren", it.title) }
-                    performViewAction { showFeedItemGroups(list) }
-                },
-                onError = { Log.d("darren", it.message ) },
-                onCompleted = { Log.d("darren", "onCompleted") }
-        )
+
+        performDomainAction {
+            getFeedItemGroups.execute(
+                    onNext = {
+                        val list = presentationMapper.convertSubscriptionsToFeedItemGroups(it)
+                        list.forEach { Log.d("darren", it.title) }
+                        performViewAction { showFeedItemGroups(list) }
+                    },
+                    onError = { Log.d("darren", it.message ) },
+                    onCompleted = { Log.d("darren", "onCompleted") }
+            )
+        }
     }
 
     //===================================================================================
