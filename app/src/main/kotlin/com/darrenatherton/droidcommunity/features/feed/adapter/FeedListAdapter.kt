@@ -6,22 +6,22 @@ import android.view.ViewGroup
 import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
 import com.darrenatherton.droidcommunity.features.feed.FeedListViewHolder
-import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewGroupItem
+import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
 import java.util.*
 
 @PerScreen
-class FeedListAdapter constructor(private var feedViewGroupItems: List<FeedViewGroupItem> = Collections.emptyList()) :
+class FeedListAdapter constructor(private var subscriptionViewItems: List<SubscriptionViewItem> = Collections.emptyList()) :
         RecyclerView.Adapter<FeedListViewHolder>() {
 
     private val onItemClickListeners: MutableList<OnItemClickListener> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedListViewHolder {
         return when (viewType) {
-            FeedViewGroupItem.redditItemGroup ->  {
+            SubscriptionViewItem.redditItemGroup ->  {
                 //todo inflate layout representing reddit tile group
                 FeedListViewHolder.RedditGroup(LayoutInflater.from(parent.context).inflate(R.layout.item_feed_group_reddit, parent, false))
             }
-            FeedViewGroupItem.twitterItemGroup -> {
+            SubscriptionViewItem.twitterItemGroup -> {
                 //todo inflate layout representing twitter tile group
                 FeedListViewHolder.TwitterGroup(LayoutInflater.from(parent.context).inflate(R.layout.item_feed_twitter, parent, false))
             }
@@ -33,31 +33,31 @@ class FeedListAdapter constructor(private var feedViewGroupItems: List<FeedViewG
 
     override fun onBindViewHolder(viewHolder: FeedListViewHolder, position: Int) {
         when (viewHolder) {
-            is FeedListViewHolder.RedditGroup -> viewHolder.bind(getItem(position) as FeedViewGroupItem.Reddit)
-            is FeedListViewHolder.TwitterGroup -> viewHolder.bind(getItem(position) as FeedViewGroupItem.Twitter)
+            is FeedListViewHolder.RedditGroup -> viewHolder.bind(getItem(position) as SubscriptionViewItem.Reddit)
+            is FeedListViewHolder.TwitterGroup -> viewHolder.bind(getItem(position) as SubscriptionViewItem.Twitter)
         }
     }
 
-    override fun getItemCount() = feedViewGroupItems.size
+    override fun getItemCount() = subscriptionViewItems.size
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
 
-    internal fun replaceData(newViewGroupItems: List<FeedViewGroupItem>) {
-        feedViewGroupItems = newViewGroupItems
+    internal fun replaceData(newSubscriptions: List<SubscriptionViewItem>) {
+        subscriptionViewItems = newSubscriptions
         notifyDataSetChanged()
     }
 
-    private fun getItem(position: Int) = feedViewGroupItems[position]
+    private fun getItem(position: Int) = subscriptionViewItems[position]
 
     internal fun addOnItemClickListener(onItemClickListener: OnItemClickListener) {
         onItemClickListeners.add(onItemClickListener)
     }
 
-    private fun notifyOnFeedItemClicked(feedViewGroupItem: FeedViewGroupItem) {
-        onItemClickListeners.forEach { it.onFeedItemClicked(feedViewGroupItem) }
+    private fun notifyOnFeedItemClicked(subscriptionViewItem: SubscriptionViewItem) {
+        onItemClickListeners.forEach { it.onFeedItemClicked(subscriptionViewItem) }
     }
 
     interface OnItemClickListener {
-        fun onFeedItemClicked(feedViewGroupItem: FeedViewGroupItem)
+        fun onFeedItemClicked(subscriptionViewItem: SubscriptionViewItem)
     }
 }

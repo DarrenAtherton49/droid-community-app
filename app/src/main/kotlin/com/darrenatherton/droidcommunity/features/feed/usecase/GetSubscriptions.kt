@@ -10,7 +10,7 @@ import rx.Observable
 import javax.inject.Inject
 
 @PerScreen
-class GetFeedItemGroups @Inject constructor(
+class GetSubscriptions @Inject constructor(
         uiThread: UiThread,
         ioExecutor: IoExecutor,
         private val accountRepository: AccountRepository

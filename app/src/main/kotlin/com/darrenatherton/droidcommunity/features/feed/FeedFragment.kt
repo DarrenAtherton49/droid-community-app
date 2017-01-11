@@ -13,14 +13,14 @@ import com.darrenatherton.droidcommunity.base.presentation.BaseFragment
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerFeedComponent
 import com.darrenatherton.droidcommunity.common.injection.module.FeedModule
 import com.darrenatherton.droidcommunity.features.feed.adapter.FeedListAdapter
-import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewGroupItem
+import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
 import javax.inject.Inject
 
 class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPresenter.View,
         FeedListAdapter.OnItemClickListener {
 
     interface FeedListNavListener {
-        fun showFeedItem(feedViewGroupItem: FeedViewGroupItem)
+        fun showFeedItem(subscriptionViewItem: SubscriptionViewItem)
     }
 
     override val passiveView = this
@@ -64,7 +64,7 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
         recyclerView.adapter = feedListAdapter
     }
 
-    override fun onFeedItemClicked(feedViewGroupItem: FeedViewGroupItem) {
+    override fun onFeedItemClicked(subscriptionViewItem: SubscriptionViewItem) {
 
     }
 
@@ -85,11 +85,11 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
     // View functions
     //===================================================================================
 
-    override fun showFeedItemGroups(groupItems: List<FeedViewGroupItem>) {
-        feedListAdapter.replaceData(groupItems)
+    override fun showSubscriptions(items: List<SubscriptionViewItem>) {
+        feedListAdapter.replaceData(items)
     }
 
-    override fun showFeedItemDetail(feedViewGroupItem: FeedViewGroupItem) {
-        feedListNavListener?.showFeedItem(feedViewGroupItem)
+    override fun showSubscriptionDetail(subscriptionViewItem: SubscriptionViewItem) {
+        feedListNavListener?.showFeedItem(subscriptionViewItem)
     }
 }

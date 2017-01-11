@@ -2,7 +2,7 @@ package com.darrenatherton.droidcommunity.features.feed
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewGroupItem
+import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
 import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewSingleItem
 import kotlinx.android.synthetic.main.item_feed_reddit.view.*
 
@@ -15,8 +15,8 @@ sealed class FeedListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
 
     class RedditGroup(itemView: View) : FeedListViewHolder(itemView) {
 
-        fun bind(groupItem: FeedViewGroupItem.Reddit) {
-            with(groupItem) {
+        fun bind(item: SubscriptionViewItem.Reddit) {
+            with(item) {
                 itemView.title_textview.text = title
             }
         }
@@ -24,8 +24,8 @@ sealed class FeedListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
 
     class TwitterGroup(itemView: View) : FeedListViewHolder(itemView) {
 
-        fun bind(groupItem: FeedViewGroupItem.Twitter) {
-            with(groupItem) {
+        fun bind(item: SubscriptionViewItem.Twitter) {
+            with(item) {
 
             }
         }

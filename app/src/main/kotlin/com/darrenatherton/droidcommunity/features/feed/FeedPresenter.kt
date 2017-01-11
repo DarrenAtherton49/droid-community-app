@@ -4,13 +4,13 @@ import android.util.Log
 import com.darrenatherton.droidcommunity.base.presentation.BasePresenter
 import com.darrenatherton.droidcommunity.base.presentation.BaseView
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
-import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewGroupItem
+import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
 import com.darrenatherton.droidcommunity.features.feed.mapper.RedditFeedPresentationMapper
-import com.darrenatherton.droidcommunity.features.feed.usecase.GetFeedItemGroups
+import com.darrenatherton.droidcommunity.features.feed.usecase.GetSubscriptions
 import javax.inject.Inject
 
 @PerScreen
-class FeedPresenter @Inject constructor(private val getFeedItemGroups: GetFeedItemGroups,
+class FeedPresenter @Inject constructor(private val getSubscriptions: GetSubscriptions,
                                         private val presentationMapper: RedditFeedPresentationMapper)
     : BasePresenter<FeedPresenter.View>() {
 
@@ -34,24 +34,25 @@ class FeedPresenter @Inject constructor(private val getFeedItemGroups: GetFeedIt
         //todo show/hide progress/retry etc
 
         performDomainAction {
-            getFeedItemGroups.execute(
+            getSubscriptions.execute(
                     onNext = {
-                        val list = presentationMapper.convertSubscriptionsToFeedItemGroups(it)
+                        val list = presentationMapper.convertSubscriptionsDomainToView(it)
                         list.forEach { Log.d("darren", it.title) }
-                        performViewAction { showFeedItemGroups(list) }
+                        performViewAction { showSubscriptions(list) }
                     },
                     onError = { Log.d("darren", it.message ) },
                     onCompleted = { Log.d("darren", "onCompleted") }
             )
         }
+
     }
 
     //===================================================================================
     // Actions forwarded from view
     //===================================================================================
 
-    internal fun onFeedItemClicked(feedViewGroupItem: FeedViewGroupItem) {
-        performViewAction { showFeedItemDetail(feedViewGroupItem) }
+    internal fun onFeedItemClicked(subscriptionViewItem: SubscriptionViewItem) {
+        performViewAction { showSubscriptionDetail(subscriptionViewItem) }
     }
 
     //===================================================================================
@@ -59,7 +60,7 @@ class FeedPresenter @Inject constructor(private val getFeedItemGroups: GetFeedIt
     //===================================================================================
 
     interface View : BaseView {
-        fun showFeedItemGroups(groupItems: List<FeedViewGroupItem>)
-        fun showFeedItemDetail(feedViewGroupItem: FeedViewGroupItem)
+        fun showSubscriptions(items: List<SubscriptionViewItem>)
+        fun showSubscriptionDetail(subscriptionViewItem: SubscriptionViewItem)
     }
 }

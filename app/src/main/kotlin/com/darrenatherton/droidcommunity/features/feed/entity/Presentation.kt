@@ -7,10 +7,10 @@ import com.darrenatherton.droidcommunity.reddit.entity.Subreddit
 // from a subreddit or list of tweets)
 //===================================================================================
 
-sealed class FeedViewGroupItem(val title: String, val viewType: Int) {
+sealed class SubscriptionViewItem(val title: String, val viewType: Int) {
 
-    class Reddit(title: String, subreddit: Subreddit) : FeedViewGroupItem(title, redditItemGroup)
-    class Twitter(title: String) : FeedViewGroupItem(title, twitterItemGroup)
+    class Reddit(title: String, subreddit: Subreddit) : SubscriptionViewItem(title, redditItemGroup)
+    class Twitter(title: String) : SubscriptionViewItem(title, twitterItemGroup)
 
     companion object Type {
         val redditItemGroup by lazy { 0 }

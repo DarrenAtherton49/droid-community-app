@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.common.util.showFragment
 import com.darrenatherton.droidcommunity.features.feed.FeedFragment
-import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewGroupItem
+import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,7 +21,7 @@ class Navigator @Inject constructor() {
         }
     }
 
-    internal fun showFeedItem(activity: AppCompatActivity, feedViewItem: FeedViewGroupItem) {
+    internal fun showSubscription(activity: AppCompatActivity, subscriptionViewItem: SubscriptionViewItem) {
 
     }
 }

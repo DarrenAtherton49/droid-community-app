@@ -1,8 +1,8 @@
 package com.darrenatherton.droidcommunity.features.feed.mapper
 
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
-import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewGroupItem
 import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewSingleItem
+import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
 import com.darrenatherton.droidcommunity.reddit.entity.RedditListingItem
 import com.darrenatherton.droidcommunity.reddit.entity.Subreddit
 import com.darrenatherton.droidcommunity.reddit.entity.Subscription
@@ -15,17 +15,17 @@ import javax.inject.Inject
 @PerScreen
 class RedditFeedPresentationMapper @Inject constructor() {
 
-    internal fun convertSubscriptionsToFeedItemGroups(subscriptions: List<Subscription>): List<FeedViewGroupItem> {
-        return subscriptions.map { convertSubscriptionToFeedItemGroup(it) }
+    internal fun convertSubscriptionsDomainToView(subscriptions: List<Subscription>): List<SubscriptionViewItem> {
+        return subscriptions.map { convertSubscriptionDomainToView(it) }
     }
 
-    private fun convertSubscriptionToFeedItemGroup(subscription: Subscription): FeedViewGroupItem {
+    private fun convertSubscriptionDomainToView(subscription: Subscription): SubscriptionViewItem {
         return when (subscription) {
             is Subscription.Reddit -> {
-                FeedViewGroupItem.Reddit(subscription.title, subscription.subreddit)
+                SubscriptionViewItem.Reddit(subscription.title, subscription.subreddit)
             }
             is Subscription.Twitter -> {
-                FeedViewGroupItem.Twitter(subscription.title)
+                SubscriptionViewItem.Twitter(subscription.title)
             }
         }
     }
