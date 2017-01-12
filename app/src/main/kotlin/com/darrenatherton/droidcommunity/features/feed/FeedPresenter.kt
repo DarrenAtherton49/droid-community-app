@@ -44,7 +44,6 @@ class FeedPresenter @Inject constructor(private val getSubscriptions: GetSubscri
                     onCompleted = { Log.d("darren", "onCompleted") }
             )
         }
-
     }
 
     //===================================================================================
