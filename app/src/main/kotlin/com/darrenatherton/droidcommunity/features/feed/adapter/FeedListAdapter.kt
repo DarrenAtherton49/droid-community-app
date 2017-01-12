@@ -17,7 +17,7 @@ class FeedListAdapter constructor(private var subscriptionViewItems: List<Subscr
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedListViewHolder {
         return when (viewType) {
-            SubscriptionViewItem.redditItemGroup ->  {
+            SubscriptionViewItem.redditItemGroup -> {
                 //todo inflate layout representing reddit tile group
                 FeedListViewHolder.RedditGroup(LayoutInflater.from(parent.context).inflate(R.layout.item_feed_group_reddit, parent, false))
             }
