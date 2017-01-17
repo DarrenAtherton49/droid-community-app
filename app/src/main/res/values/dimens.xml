@@ -1,9 +1,5 @@
 <resources>
 
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-
     <!-- Just for reference -->
     <dimen name="material_keylines_4">4dp</dimen>
     <dimen name="material_keylines_8">8dp</dimen>
@@ -21,9 +17,28 @@
     <dimen name="material_text_display2">45sp</dimen>
     <dimen name="material_text_display3">56sp</dimen>
     <dimen name="material_text_display4">112sp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
-    <!-- Feed List Feature -->
-    <dimen name="feed_item_group_header_height">112dp</dimen>
-    <dimen name="feed_item_group_header_padding_top">24dp</dimen>
+
+    <!-- General Spacing -->
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="spacing_micro">4dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="spacing_large">32dp</dimen>
+    <dimen name="touch_raise">6dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+
+    <!-- General Text -->
+    <dimen name="font_size_small">12sp</dimen>
+
+    <!-- General -->
+    <dimen name="horizontal_scrollbar_height">4dp</dimen>
+
+    <!-- Subscription Feed Feature -->
+    <dimen name="subscription_header_height">112dp</dimen>
+    <dimen name="subscription_header_padding_top">24dp</dimen>
+    <dimen name="subscription_item_tile_height">168dp</dimen>
 
 </resources>

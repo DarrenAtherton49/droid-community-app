@@ -17,4 +17,8 @@
     <color name="feed_item_background_reddit">#43ca48</color>
     <color name="feed_item_background_twitter">#03A9F4</color>
 
+    <!-- Subscription items -->
+    <color name="more_button_background">#40707070</color>
+    <color name="default_subscription_header">#9CCC65</color>
+
 </resources>

@@ -5,36 +5,34 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
-import com.darrenatherton.droidcommunity.features.feed.FeedListViewHolder
+import com.darrenatherton.droidcommunity.features.feed.SubscriptionViewHolder
 import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
 import java.util.*
 
 @PerScreen
 class FeedListAdapter constructor(private var subscriptionViewItems: List<SubscriptionViewItem> = Collections.emptyList()) :
-        RecyclerView.Adapter<FeedListViewHolder>() {
+        RecyclerView.Adapter<SubscriptionViewHolder>() {
 
     private val onItemClickListeners: MutableList<OnItemClickListener> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubscriptionViewHolder {
         return when (viewType) {
             SubscriptionViewItem.redditItemGroup -> {
-                //todo inflate layout representing reddit tile group
-                FeedListViewHolder.RedditGroup(LayoutInflater.from(parent.context).inflate(R.layout.item_feed_group_reddit, parent, false))
+                SubscriptionViewHolder.Reddit(LayoutInflater.from(parent.context).inflate(R.layout.item_subscription, parent, false))
             }
             SubscriptionViewItem.twitterItemGroup -> {
-                //todo inflate layout representing twitter tile group
-                FeedListViewHolder.TwitterGroup(LayoutInflater.from(parent.context).inflate(R.layout.item_feed_twitter, parent, false))
+                SubscriptionViewHolder.Twitter(LayoutInflater.from(parent.context).inflate(R.layout.item_subscription, parent, false))
             }
             else -> {
-                FeedListViewHolder.SimpleItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_feed, parent, false))
+                SubscriptionViewHolder.Simple(LayoutInflater.from(parent.context).inflate(R.layout.item_subscription, parent, false))
             }
         }
     }
 
-    override fun onBindViewHolder(viewHolder: FeedListViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: SubscriptionViewHolder, position: Int) {
         when (viewHolder) {
-            is FeedListViewHolder.RedditGroup -> viewHolder.bind(getItem(position) as SubscriptionViewItem.Reddit)
-            is FeedListViewHolder.TwitterGroup -> viewHolder.bind(getItem(position) as SubscriptionViewItem.Twitter)
+            is SubscriptionViewHolder.Reddit -> viewHolder.bind(getItem(position) as SubscriptionViewItem.Reddit)
+            is SubscriptionViewHolder.Twitter -> viewHolder.bind(getItem(position) as SubscriptionViewItem.Twitter)
         }
     }
 
@@ -54,10 +52,10 @@ class FeedListAdapter constructor(private var subscriptionViewItems: List<Subscr
     }
 
     private fun notifyOnFeedItemClicked(subscriptionViewItem: SubscriptionViewItem) {
-        onItemClickListeners.forEach { it.onFeedItemClicked(subscriptionViewItem) }
+        onItemClickListeners.forEach { it.onSubscriptionItemClicked(subscriptionViewItem) }
     }
 
     interface OnItemClickListener {
-        fun onFeedItemClicked(subscriptionViewItem: SubscriptionViewItem)
+        fun onSubscriptionItemClicked(subscriptionViewItem: SubscriptionViewItem)
     }
 }

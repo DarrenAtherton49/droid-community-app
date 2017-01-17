@@ -64,7 +64,7 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
         recyclerView.adapter = feedListAdapter
     }
 
-    override fun onFeedItemClicked(subscriptionViewItem: SubscriptionViewItem) {
+    override fun onSubscriptionItemClicked(subscriptionViewItem: SubscriptionViewItem) {
 
     }
 
