@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:layout_marginTop="@dimen/margin_normal"
+    style="@style/SubscriptionItemCard">
+
+    <include layout="@layout/include_subscription_header"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/sessions"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/subscription_item_tile_height"
+        android:layout_marginTop="@dimen/subscription_header_height"
+        android:scrollbars="horizontal"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbarSize="@dimen/horizontal_scrollbar_height"
+        android:orientation="horizontal" />
+
+</android.support.v7.widget.CardView>

@@ -10,4 +10,7 @@
     <string name="chat_title">Title</string>
     <string name="events_title">Events</string>
 
+    <!-- Subscriptions feed -->
+    <string name="more_items">More</string>
+
 </resources>
