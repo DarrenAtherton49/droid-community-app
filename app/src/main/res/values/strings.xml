@@ -2,9 +2,9 @@
     <string name="app_name">Droid Community</string>
     <string name="action_settings">Settings</string>
 
-    <string name="feed_tab">FEED</string>
-    <string name="chat_tab">CHAT</string>
-    <string name="events_tab">EVENTS</string>
+    <string name="feed_tab">Feed</string>
+    <string name="chat_tab">Chat</string>
+    <string name="events_tab">Events</string>
 
     <string name="feed_title">Feed</string>
     <string name="chat_title">Title</string>

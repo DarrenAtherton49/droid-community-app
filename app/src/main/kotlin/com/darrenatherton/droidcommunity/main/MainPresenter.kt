@@ -8,6 +8,10 @@ import javax.inject.Inject
 @PerScreen
 class MainPresenter @Inject constructor() : BasePresenter<MainPresenter.View>() {
 
+    private val FEED = 0
+    private val CHAT = 1
+    private val EVENTS = 2
+
     override fun onViewAttached() {
 
     }
@@ -16,21 +20,17 @@ class MainPresenter @Inject constructor() : BasePresenter<MainPresenter.View>() 
 
     }
 
-    internal fun onFeedButtonClicked() {
-        performViewAction { showFeed() }
-    }
-
-    internal fun onChatButtonClicked() {
-        performViewAction { showChat() }
-    }
-
-    internal fun onEventsButtonClicked() {
-        performViewAction { showEvents() }
+    fun onTabSelected(tab: Int) {
+        when (tab) {
+            FEED -> performViewAction { setTitleForFeed() }
+            CHAT -> performViewAction { setTitleForChat() }
+            EVENTS -> performViewAction { setTitleForEvents() }
+        }
     }
 
     interface View : BaseView {
-        fun showFeed()
-        fun showChat()
-        fun showEvents()
+        fun setTitleForFeed()
+        fun setTitleForChat()
+        fun setTitleForEvents()
     }
 }

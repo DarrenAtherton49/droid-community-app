@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +13,14 @@ import com.darrenatherton.droidcommunity.common.injection.component.DaggerFeedCo
 import com.darrenatherton.droidcommunity.common.injection.module.FeedModule
 import com.darrenatherton.droidcommunity.features.feed.adapter.FeedListAdapter
 import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
+import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 
 class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPresenter.View,
         FeedListAdapter.OnItemClickListener {
 
     interface FeedListNavListener {
-        fun showFeedItem(subscriptionViewItem: SubscriptionViewItem)
+        fun showSubscription(subscriptionViewItem: SubscriptionViewItem)
     }
 
     override val passiveView = this
@@ -43,13 +43,12 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        act().supportActionBar?.title = getString(R.string.feed_title)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecyclerView(view)
+        initRecyclerView()
     }
 
     override fun onDetach() {
@@ -57,9 +56,9 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
         this.feedListNavListener = null
     }
 
-    private fun initRecyclerView(rootView: View) {
+    private fun initRecyclerView() {
         feedListAdapter.addOnItemClickListener(this)
-        val recyclerView = rootView.findViewById(R.id.fragment_feed_recyclerview) as RecyclerView
+        val recyclerView = feedRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = feedListAdapter
     }
@@ -90,6 +89,6 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
     }
 
     override fun showSubscriptionDetail(subscriptionViewItem: SubscriptionViewItem) {
-        feedListNavListener?.showFeedItem(subscriptionViewItem)
+        feedListNavListener?.showSubscription(subscriptionViewItem)
     }
 }
