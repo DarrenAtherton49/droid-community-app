@@ -36,7 +36,7 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        supportActionBar?.title = getString(R.string.feed_tab)
+        supportActionBar?.title = getString(R.string.feed_title)
 
         initTabs()
     }
@@ -62,9 +62,9 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
 
     private fun initTabs() {
         viewPagerAdapter.setFragments(
-                getString(R.string.feed_tab) to FeedFragment(),
-                getString(R.string.chat_tab) to FeedFragment(),
-                getString(R.string.events_tab) to FeedFragment()
+                getString(R.string.feed_title) to FeedFragment(),
+                getString(R.string.chat_title) to FeedFragment(),
+                getString(R.string.events_title) to FeedFragment()
         )
         viewPagerMain.adapter = viewPagerAdapter
         viewPagerMain.addOnPageChangeListener(this)
@@ -97,15 +97,15 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
     //===================================================================================
 
     override fun setTitleForFeed() {
-        supportActionBar?.title = getString(R.string.feed_tab)
+        supportActionBar?.title = getString(R.string.feed_title)
     }
 
     override fun setTitleForChat() {
-        supportActionBar?.title = getString(R.string.chat_tab)
+        supportActionBar?.title = getString(R.string.chat_title)
     }
 
     override fun setTitleForEvents() {
-        supportActionBar?.title = getString(R.string.events_tab)
+        supportActionBar?.title = getString(R.string.events_title)
     }
 
     //===================================================================================
