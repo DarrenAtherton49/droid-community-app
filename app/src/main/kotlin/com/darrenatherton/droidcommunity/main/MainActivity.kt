@@ -2,29 +2,29 @@ package com.darrenatherton.droidcommunity.main
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.base.presentation.BaseActivity
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerMainViewComponent
 import com.darrenatherton.droidcommunity.common.injection.component.MainViewComponent
+import com.darrenatherton.droidcommunity.common.injection.module.MainViewModule
+import com.darrenatherton.droidcommunity.features.feed.FeedFragment
 import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_appbar_tabs.*
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
-        MainPresenter.View, MainNavigation, AHBottomNavigation.OnTabSelectedListener {
+        MainPresenter.View, MainNavigation, ViewPager.OnPageChangeListener {
 
     private lateinit var mainViewComponent: MainViewComponent
     override val passiveView = this
     @Inject override lateinit var presenter: MainPresenter
     @LayoutRes override val layoutResId = R.layout.activity_main
-
-    private val FEED = 0
-    private val CHAT = 1
-    private val EVENTS = 2
+    @Inject internal lateinit var viewPagerAdapter: MainViewPagerAdapter
 
     //===================================================================================
     // Lifecycle functions and initialization
@@ -36,7 +36,9 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        initBottomNav()
+        supportActionBar?.title = getString(R.string.feed_tab)
+
+        initTabs()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -58,32 +60,23 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         return super.onOptionsItemSelected(item)
     }
 
-
-    private fun initBottomNav() {
-        val bottomNav = findViewById(R.id.bottom_nav) as AHBottomNavigation
-        val tabs = listOf(
-                AHBottomNavigationItem(R.string.feed_tab, R.drawable.ic_profile_tab, R.color.bottom_nav),
-                AHBottomNavigationItem(R.string.chat_tab, R.drawable.ic_profile_tab, R.color.bottom_nav),
-                AHBottomNavigationItem(R.string.events_tab, R.drawable.ic_profile_tab, R.color.bottom_nav)
+    private fun initTabs() {
+        viewPagerAdapter.setFragments(
+                getString(R.string.feed_tab) to FeedFragment(),
+                getString(R.string.chat_tab) to FeedFragment(),
+                getString(R.string.events_tab) to FeedFragment()
         )
-        bottomNav.addItems(tabs)
-
-        bottomNav.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
-        bottomNav.isForceTint = true
-        bottomNav.isColored = true // colored navigation with circular reveal effect
-        onTabSelected(FEED, false)
-        bottomNav.setOnTabSelectedListener(this)
+        viewPagerMain.adapter = viewPagerAdapter
+        viewPagerMain.addOnPageChangeListener(this)
+        tablayoutMain.setupWithViewPager(viewPagerMain)
     }
 
-    override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
-        if (!wasSelected) {
-            when (position) {
-                FEED -> presenter.onFeedButtonClicked()
-                CHAT -> presenter.onChatButtonClicked()
-                EVENTS -> presenter.onEventsButtonClicked()
-            }
-        }
-        return !wasSelected
+    override fun onPageScrollStateChanged(state: Int) {}
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+    override fun onPageSelected(position: Int) {
+        presenter.onTabSelected(position)
     }
 
     //===================================================================================
@@ -94,6 +87,7 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         mainViewComponent = DaggerMainViewComponent.builder()
                 .appComponent(appComponent())
                 .activityModule(activityModule())
+                .mainViewModule(MainViewModule(this))
                 .build()
         mainViewComponent.inject(this)
     }
@@ -102,35 +96,23 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
     // View functions
     //===================================================================================
 
-    override fun showFeed() {
-        navigator.showFeedList(this)
+    override fun setTitleForFeed() {
+        supportActionBar?.title = getString(R.string.feed_tab)
     }
 
-    override fun showChat() {
-
+    override fun setTitleForChat() {
+        supportActionBar?.title = getString(R.string.chat_tab)
     }
 
-    override fun showEvents() {
-
+    override fun setTitleForEvents() {
+        supportActionBar?.title = getString(R.string.events_tab)
     }
 
     //===================================================================================
     // Navigation functions from fragments
     //===================================================================================
 
-    override fun showFeedItem(subscriptionViewItem: SubscriptionViewItem) {
-        navigator.showSubscription(this, subscriptionViewItem)
-    }
-
-    /**
-     * Finish activity when reaching the last fragment.
-     */
-    override fun onBackPressed() {
-        val fragmentManager = supportFragmentManager
-        if (fragmentManager.backStackEntryCount > 1) {
-            fragmentManager.popBackStack()
-        } else {
-            finish()
-        }
+    override fun showSubscription(subscriptionViewItem: SubscriptionViewItem) {
+        //navigator.showSubscription(this, subscriptionViewItem)
     }
 }

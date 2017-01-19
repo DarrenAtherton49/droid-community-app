@@ -57,8 +57,6 @@ dependencies {
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitVersion"
 
-    compile "com.aurelhubert:ahbottomnavigation:$rootProject.bottomNavVersion"
-
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     provided "org.glassfish:javax.annotation:10.0-b28"
