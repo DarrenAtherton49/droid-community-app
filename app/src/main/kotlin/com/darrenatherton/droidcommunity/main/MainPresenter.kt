@@ -8,9 +8,9 @@ import javax.inject.Inject
 @PerScreen
 class MainPresenter @Inject constructor() : BasePresenter<MainPresenter.View>() {
 
-    private val FEED = 0
-    private val CHAT = 1
-    private val EVENTS = 2
+    val FEED_TAB = 0
+    val CHAT_TAB = 1
+    val EVENTS_TAB = 2
 
     override fun onViewAttached() {
 
@@ -22,9 +22,9 @@ class MainPresenter @Inject constructor() : BasePresenter<MainPresenter.View>() 
 
     fun onTabSelected(tab: Int) {
         when (tab) {
-            FEED -> performViewAction { setTitleForFeed() }
-            CHAT -> performViewAction { setTitleForChat() }
-            EVENTS -> performViewAction { setTitleForEvents() }
+            FEED_TAB -> performViewAction { setTitleForFeed() }
+            CHAT_TAB -> performViewAction { setTitleForChat() }
+            EVENTS_TAB -> performViewAction { setTitleForEvents() }
         }
     }
 
