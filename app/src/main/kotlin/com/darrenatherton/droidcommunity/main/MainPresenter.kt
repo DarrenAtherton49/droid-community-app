@@ -22,9 +22,18 @@ class MainPresenter @Inject constructor() : BasePresenter<MainPresenter.View>() 
 
     fun onTabSelected(tab: Int) {
         when (tab) {
-            FEED_TAB -> performViewAction { setTitleForFeed() }
-            CHAT_TAB -> performViewAction { setTitleForChat() }
-            EVENTS_TAB -> performViewAction { setTitleForEvents() }
+            FEED_TAB -> {
+                performViewAction { setTitleForFeed() }
+                performViewAction { enableSubscriptionsMenu() }
+            }
+            CHAT_TAB -> {
+                performViewAction { setTitleForChat() }
+                performViewAction { disableSubscriptionsMenu() }
+            }
+            EVENTS_TAB -> {
+                performViewAction { setTitleForEvents() }
+                performViewAction { disableSubscriptionsMenu() }
+            }
         }
     }
 
@@ -32,5 +41,7 @@ class MainPresenter @Inject constructor() : BasePresenter<MainPresenter.View>() 
         fun setTitleForFeed()
         fun setTitleForChat()
         fun setTitleForEvents()
+        fun enableSubscriptionsMenu()
+        fun disableSubscriptionsMenu()
     }
 }

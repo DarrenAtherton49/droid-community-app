@@ -12,7 +12,7 @@
     <color name="material_text_icons">#FFFFFF</color>
     <color name="material_divider_color">#BDBDBD</color>
 
-    <color name="bottom_nav">@color/material_primary</color>
+    <color name="drawer_layout">#455A64</color>
 
     <color name="feed_item_background_reddit">#43ca48</color>
     <color name="feed_item_background_twitter">#03A9F4</color>

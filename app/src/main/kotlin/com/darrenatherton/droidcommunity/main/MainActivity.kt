@@ -2,7 +2,11 @@ package com.darrenatherton.droidcommunity.main
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
+import android.support.v4.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+import android.support.v4.widget.DrawerLayout.LOCK_MODE_UNLOCKED
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
@@ -14,11 +18,13 @@ import com.darrenatherton.droidcommunity.common.injection.module.MainViewModule
 import com.darrenatherton.droidcommunity.features.feed.FeedFragment
 import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.layout_appbar_tabs.*
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
-        MainPresenter.View, MainNavigation, ViewPager.OnPageChangeListener {
+        MainPresenter.View, MainNavigation, ViewPager.OnPageChangeListener,
+        NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var mainViewComponent: MainViewComponent
     override val passiveView = this
@@ -39,6 +45,7 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         supportActionBar?.title = getString(R.string.feed_title)
 
         initTabs()
+        navigationView.setNavigationItemSelectedListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -60,6 +67,14 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            drawerLayout.closeDrawer(GravityCompat.END)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun initTabs() {
         viewPagerAdapter.setFragments(
                 getString(R.string.feed_title) to FeedFragment(),
@@ -71,12 +86,27 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         tablayoutMain.setupWithViewPager(viewPagerMain)
     }
 
+    //===================================================================================
+    // ViewPager callbacks
+    //===================================================================================
+
     override fun onPageScrollStateChanged(state: Int) {}
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
     override fun onPageSelected(position: Int) {
         presenter.onTabSelected(position)
+    }
+
+    //===================================================================================
+    // DrawerLayout callbacks
+    //===================================================================================
+    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+
+        }
+        menuItem.isChecked = true
+        return true
     }
 
     //===================================================================================
@@ -106,6 +136,14 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
 
     override fun setTitleForEvents() {
         supportActionBar?.title = getString(R.string.events_title)
+    }
+
+    override fun enableSubscriptionsMenu() {
+        drawerLayout.setDrawerLockMode(LOCK_MODE_UNLOCKED)
+    }
+
+    override fun disableSubscriptionsMenu() {
+        drawerLayout.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
     }
 
     //===================================================================================

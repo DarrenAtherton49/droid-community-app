@@ -4,7 +4,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.MockitoAnnotations
 
 class MainPresenterTest {
@@ -19,7 +20,7 @@ class MainPresenterTest {
     }
 
     @Test
-    fun viewTitleUpdatedWhenFeedTabSelected() {
+    fun viewUpdatedWhenFeedTabSelected() {
 
         // given that the view is attached
         presenter.viewAttached(view)
@@ -27,14 +28,15 @@ class MainPresenterTest {
         // when the feed tab is selected in the view
         presenter.onTabSelected(presenter.FEED_TAB)
 
-        // then the view title is set for the feed
+        // then the view title is set for the feed and the subscriptions menu is enabled
         verify(view).setTitleForFeed()
+        verify(view).enableSubscriptionsMenu()
 
         verifyNoMoreInteractions(view)
     }
 
     @Test
-    fun viewTitleUpdatedWhenChatTabSelected() {
+    fun viewUpdatedWhenChatTabSelected() {
 
         // given that the view is attached
         presenter.viewAttached(view)
@@ -42,14 +44,15 @@ class MainPresenterTest {
         // when the chat tab is selected in the view
         presenter.onTabSelected(presenter.CHAT_TAB)
 
-        // then the view title is set for chat
+        // then the view title is set for chat and the subscriptions menu is disabled
         verify(view).setTitleForChat()
+        verify(view).disableSubscriptionsMenu()
 
         verifyNoMoreInteractions(view)
     }
 
     @Test
-    fun viewTitleUpdatedWhenEventsTabSelected() {
+    fun viewUpdatedWhenEventsTabSelected() {
 
         // given that the view is attached
         presenter.viewAttached(view)
@@ -57,23 +60,22 @@ class MainPresenterTest {
         // when the feed tab is selected in the view
         presenter.onTabSelected(presenter.EVENTS_TAB)
 
-        // then the view title is set for events
+        // then the view title is set for events and the subscriptions menu is disabled
         verify(view).setTitleForEvents()
+        verify(view).disableSubscriptionsMenu()
 
         verifyNoMoreInteractions(view)
     }
 
     @Test
-    fun viewTitleNotUpdatedWhenViewNotAttached() {
+    fun viewNotUpdatedWhenViewNotAttached() {
 
         // given that the view is not ttached
 
         // when the feed tab is selected in the view
         presenter.onTabSelected(presenter.FEED_TAB)
 
-        // then the view title is set for the feed
-        verify(view, never()).setTitleForFeed()
-
+        // then the view title is set for the feed and subscription menu is not modified
         verifyNoMoreInteractions(view)
     }
 
@@ -86,7 +88,7 @@ class MainPresenterTest {
         // when the presenter tabSelected is called with an unknown tab
         presenter.onTabSelected(999)
 
-        // then the presenter does not updated the view
+        // then the presenter does not update the view
         verifyNoMoreInteractions(view)
     }
 

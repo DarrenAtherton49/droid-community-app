@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_drawer_item_reddit_posts"
+            android:icon="@drawable/ic_profile_tab"
+            android:title="@string/app_name"/>
+        <item
+            android:id="@+id/nav_drawer_item_twitter_posts"
+            android:title="@string/app_name"/>
+    </group>
+
+    <group
+        android:id="@+id/navigation_drawer_group_saved"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_item_reddit3"
+            android:title="@string/app_name"/>
+        <item
+            android:id="@+id/drawer_item_reddit4"
+            android:title="@string/app_name"/>
+    </group>
+
+    <group
+        android:id="@+id/navigation_drawer_group_connect_accounts"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_drawer_item_connect_accounts"
+            android:icon="@drawable/ic_profile_tab"
+            android:title="@string/app_name"/>
+    </group>
+
+</menu>
