@@ -13,16 +13,6 @@ abstract class BasePresenter<View: BaseView> {
 
     protected val compositeSubscription: CompositeSubscription by lazy { CompositeSubscription() }
 
-    inline protected fun performViewAction(action: View.() -> Unit) {
-        if (isViewAttached) {
-            view.action()
-        }
-    }
-
-    inline protected fun performDomainAction(action: () -> Subscription) {
-        compositeSubscription.add(action())
-    }
-
     fun viewAttached(view: View) {
         this.view = view
         isViewAttached = true
@@ -30,9 +20,9 @@ abstract class BasePresenter<View: BaseView> {
     }
 
     fun viewDetached() {
-        isViewAttached = false
         unsubscribeDomainActions()
         onViewDetached()
+        isViewAttached = false
     }
 
     /*
@@ -47,6 +37,16 @@ abstract class BasePresenter<View: BaseView> {
      * they are added to the compositeSubscription via performDomainAction()
      */
     protected abstract fun onViewDetached()
+
+    inline protected fun performViewAction(action: View.() -> Unit) {
+        if (isViewAttached) {
+            view.action()
+        }
+    }
+
+    inline protected fun performDomainAction(action: () -> Subscription) {
+        compositeSubscription.add(action())
+    }
 
     private fun unsubscribeDomainActions() {
         compositeSubscription.clear()
