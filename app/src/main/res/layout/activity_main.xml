@@ -14,6 +14,7 @@
 
     <!-- Subscription drawer -->
     <com.darrenatherton.droidcommunity.features.subscriptiondrawer.SubscriptionDrawerView
+        android:id="@+id/subscriptionDrawer"
         android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="end"

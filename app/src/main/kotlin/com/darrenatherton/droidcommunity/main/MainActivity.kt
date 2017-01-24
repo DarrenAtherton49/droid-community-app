@@ -83,6 +83,9 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         viewPagerMain.adapter = viewPagerAdapter
         viewPagerMain.addOnPageChangeListener(this)
         tablayoutMain.setupWithViewPager(viewPagerMain)
+
+        // set initially selected tab
+        presenter.onTabSelected(presenter.FEED_TAB)
     }
 
     //===================================================================================
@@ -138,12 +141,20 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         supportActionBar?.title = getString(R.string.events_title)
     }
 
-    override fun enableSubscriptionsMenu() {
+    override fun enableSubscriptionsMenuSwipe() {
         drawerLayout.setDrawerLockMode(LOCK_MODE_UNLOCKED)
     }
 
-    override fun disableSubscriptionsMenu() {
+    override fun disableSubscriptionsMenuSwipe() {
         drawerLayout.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
+    }
+
+    override fun attachSubscriptionsMenu() {
+        subscriptionDrawer.onHostAttached()
+    }
+
+    override fun detachSubscriptionsMenu() {
+        subscriptionDrawer.onHostDetached()
     }
 
     //===================================================================================

@@ -21,4 +21,12 @@ class SubscriptionDrawerView : RecyclerView {
     fun init(context: Context, attrs: AttributeSet? = null) {
 
     }
+
+    fun onHostAttached() {
+        //todo call subscriptionDrawer presenter onAttached()
+    }
+
+    fun onHostDetached() {
+        //todo call subscriptionDrawer presenter onDetached()
+    }
 }
