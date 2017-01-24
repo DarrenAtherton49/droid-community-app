@@ -45,7 +45,6 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         supportActionBar?.title = getString(R.string.feed_title)
 
         initTabs()
-        navigationView.setNavigationItemSelectedListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -101,6 +100,7 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
     //===================================================================================
     // DrawerLayout callbacks
     //===================================================================================
+
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
 

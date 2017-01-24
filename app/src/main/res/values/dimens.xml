@@ -21,6 +21,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <item name="match_parent" format="integer" type="dimen">-1</item>
+    <item name="wrap_content" format="integer" type="dimen">-2</item>
 
     <!-- General Spacing -->
     <dimen name="spacing_normal">8dp</dimen>
@@ -40,5 +42,9 @@
     <dimen name="subscription_header_height">112dp</dimen>
     <dimen name="subscription_header_padding_top">24dp</dimen>
     <dimen name="subscription_item_tile_height">168dp</dimen>
+
+    <!-- Subscription drawer -->
+    <dimen name="drawer_width">@dimen/match_parent</dimen>
+    <dimen name="drawer_elevation">16dp</dimen>
 
 </resources>

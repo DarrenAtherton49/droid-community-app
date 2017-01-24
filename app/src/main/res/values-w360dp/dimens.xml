@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Subscription drawer -->
+    <dimen name="drawer_width">304dp</dimen>
+
+</resources>
