@@ -17,7 +17,7 @@ class MainPresenter @Inject constructor() : BasePresenter<MainPresenter.View>() 
     }
 
     override fun onViewDetached() {
-        performViewAction { detachSubscriptionsMenu() }
+
     }
 
     fun onTabSelected(tab: Int) {
@@ -25,17 +25,14 @@ class MainPresenter @Inject constructor() : BasePresenter<MainPresenter.View>() 
             FEED_TAB -> {
                 performViewAction { setTitleForFeed() }
                 performViewAction { enableSubscriptionsMenuSwipe() }
-                performViewAction { attachSubscriptionsMenu() }
             }
             CHAT_TAB -> {
                 performViewAction { setTitleForChat() }
                 performViewAction { disableSubscriptionsMenuSwipe() }
-                performViewAction { detachSubscriptionsMenu() }
             }
             EVENTS_TAB -> {
                 performViewAction { setTitleForEvents() }
                 performViewAction { disableSubscriptionsMenuSwipe() }
-                performViewAction { detachSubscriptionsMenu() }
             }
         }
     }
@@ -46,7 +43,5 @@ class MainPresenter @Inject constructor() : BasePresenter<MainPresenter.View>() 
         fun setTitleForEvents()
         fun enableSubscriptionsMenuSwipe()
         fun disableSubscriptionsMenuSwipe()
-        fun attachSubscriptionsMenu()
-        fun detachSubscriptionsMenu()
     }
 }

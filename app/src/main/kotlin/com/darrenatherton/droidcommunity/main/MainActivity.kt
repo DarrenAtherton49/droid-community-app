@@ -149,14 +149,6 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         drawerLayout.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
     }
 
-    override fun attachSubscriptionsMenu() {
-        subscriptionDrawer.onHostAttached()
-    }
-
-    override fun detachSubscriptionsMenu() {
-        subscriptionDrawer.onHostDetached()
-    }
-
     //===================================================================================
     // Navigation functions from fragments
     //===================================================================================

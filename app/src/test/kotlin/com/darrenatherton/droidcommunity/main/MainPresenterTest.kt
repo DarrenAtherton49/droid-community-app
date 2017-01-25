@@ -31,7 +31,6 @@ class MainPresenterTest {
         // then the view title is set for the feed and the subscriptions menu is enabled
         verify(view).setTitleForFeed()
         verify(view).enableSubscriptionsMenuSwipe()
-        verify(view).attachSubscriptionsMenu()
 
         verifyNoMoreInteractions(view)
     }
@@ -48,7 +47,6 @@ class MainPresenterTest {
         // then the view title is set for chat and the subscriptions menu is disabled
         verify(view).setTitleForChat()
         verify(view).disableSubscriptionsMenuSwipe()
-        verify(view).detachSubscriptionsMenu()
 
         verifyNoMoreInteractions(view)
     }
@@ -65,7 +63,6 @@ class MainPresenterTest {
         // then the view title is set for events and the subscriptions menu is disabled
         verify(view).setTitleForEvents()
         verify(view).disableSubscriptionsMenuSwipe()
-        verify(view).detachSubscriptionsMenu()
 
         verifyNoMoreInteractions(view)
     }
@@ -92,21 +89,6 @@ class MainPresenterTest {
         presenter.onTabSelected(999)
 
         // then the presenter does not update the view
-        verifyNoMoreInteractions(view)
-    }
-
-    @Test
-    fun detachSubscriptionDrawerViewDetached() {
-
-        // given that the view is attached
-        presenter.viewAttached(view)
-
-        // and then the view becomes detached
-        presenter.viewDetached()
-
-        // then the presenter detaches the subscriptions menu
-        verify(view).detachSubscriptionsMenu()
-
         verifyNoMoreInteractions(view)
     }
 
