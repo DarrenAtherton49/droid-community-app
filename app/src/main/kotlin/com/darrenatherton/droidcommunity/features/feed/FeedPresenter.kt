@@ -6,7 +6,7 @@ import com.darrenatherton.droidcommunity.base.presentation.BaseView
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
 import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
 import com.darrenatherton.droidcommunity.features.feed.mapper.RedditFeedPresentationMapper
-import com.darrenatherton.droidcommunity.features.feed.usecase.GetSubscriptions
+import com.darrenatherton.droidcommunity.domain.usecase.GetSubscriptions
 import javax.inject.Inject
 
 @PerScreen

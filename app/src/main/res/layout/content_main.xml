@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".main.MainActivity">
+    tools:context=".features.main.MainActivity">
 
     <include layout="@layout/layout_appbar_tabs"/>
 

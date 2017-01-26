@@ -1,12 +1,11 @@
 package com.darrenatherton.droidcommunity.features.feed.mapper
 
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
+import com.darrenatherton.droidcommunity.data.reddit.Subreddit
+import com.darrenatherton.droidcommunity.domain.reddit.RedditListingItem
+import com.darrenatherton.droidcommunity.domain.reddit.Subscription
 import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewSingleItem
 import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
-import com.darrenatherton.droidcommunity.reddit.entity.RedditListingItem
-import com.darrenatherton.droidcommunity.reddit.entity.Subreddit
-import com.darrenatherton.droidcommunity.reddit.entity.Subscription
-import com.darrenatherton.droidcommunity.twitter.entity.TweetItem
 import javax.inject.Inject
 
 /**
@@ -41,12 +40,6 @@ class RedditFeedPresentationMapper @Inject constructor() {
                 author,
                 submitted,
                 numComments
-        )
-    }
-
-    private fun convertTweetItemToViewItem(item: TweetItem): FeedViewSingleItem.Twitter = with(item) {
-        FeedViewSingleItem.Twitter(
-                message
         )
     }
 }

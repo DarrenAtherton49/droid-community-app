@@ -7,8 +7,8 @@ import com.darrenatherton.droidcommunity.common.navigation.Navigator
 import com.darrenatherton.droidcommunity.common.threading.ComputationExecutor
 import com.darrenatherton.droidcommunity.common.threading.IoExecutor
 import com.darrenatherton.droidcommunity.common.threading.UiThread
-import com.darrenatherton.droidcommunity.reddit.repository.RedditRepository
-import com.darrenatherton.droidcommunity.subscription.repository.SubscriptionRepository
+import com.darrenatherton.droidcommunity.domain.reddit.RedditRepository
+import com.darrenatherton.droidcommunity.domain.subscription.SubscriptionRepository
 import dagger.Component
 import javax.inject.Singleton
 

@@ -1,6 +1,6 @@
 package com.darrenatherton.droidcommunity.features.feed.entity
 
-import com.darrenatherton.droidcommunity.reddit.entity.Subreddit
+import com.darrenatherton.droidcommunity.data.reddit.Subreddit
 
 //===================================================================================
 // Entities for top level feed items (e.g. horizontal list of reddit posts

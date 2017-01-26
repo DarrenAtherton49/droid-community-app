@@ -6,15 +6,15 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.darrenatherton.droidcommunity.common.navigation.Navigator
 import com.darrenatherton.droidcommunity.common.threading.*
-import com.darrenatherton.droidcommunity.reddit.mapper.RedditDomainMapper
-import com.darrenatherton.droidcommunity.reddit.mapper.RedditNetworkResponseMapper
-import com.darrenatherton.droidcommunity.reddit.repository.RedditDataRepository
-import com.darrenatherton.droidcommunity.reddit.repository.RedditRepository
-import com.darrenatherton.droidcommunity.reddit.service.RedditService
-import com.darrenatherton.droidcommunity.subscription.FirebaseSubscriptionService
-import com.darrenatherton.droidcommunity.subscription.SubscriptionService
-import com.darrenatherton.droidcommunity.subscription.repository.SubscriptionDataRepository
-import com.darrenatherton.droidcommunity.subscription.repository.SubscriptionRepository
+import com.darrenatherton.droidcommunity.domain.reddit.RedditDomainMapper
+import com.darrenatherton.droidcommunity.data.reddit.RedditResponseMapper
+import com.darrenatherton.droidcommunity.data.reddit.RedditDataRepository
+import com.darrenatherton.droidcommunity.domain.reddit.RedditRepository
+import com.darrenatherton.droidcommunity.data.reddit.service.RedditService
+import com.darrenatherton.droidcommunity.data.subscription.service.FirebaseSubscriptionService
+import com.darrenatherton.droidcommunity.data.subscription.service.SubscriptionService
+import com.darrenatherton.droidcommunity.data.subscription.SubscriptionDataRepository
+import com.darrenatherton.droidcommunity.domain.subscription.SubscriptionRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -58,7 +58,7 @@ class AppModule(private val application: Application) {
     //===================================================================================
 
     @Provides @Singleton internal fun provideRedditRepository(redditService: RedditService,
-                                                              networkResponseMapper: RedditNetworkResponseMapper,
+                                                              networkResponseMapper: RedditResponseMapper,
                                                               redditDomainMapper: RedditDomainMapper): RedditRepository {
         return RedditDataRepository(redditService, networkResponseMapper, redditDomainMapper)
     }
