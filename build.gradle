@@ -11,6 +11,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:$gradleVersion"
         classpath "com.neenbedankt.gradle.plugins:android-apt:1.8"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 
@@ -33,7 +34,8 @@ ext {
 
     // dependency versions
     junitVersion = '4.12'
-    supportLibraryVersion = '25.0.1'
+    supportLibraryVersion = '25.1.0'
+    firebaseVersion = '10.0.1'
     rxJavaVersion = '1.1.0'
     rxAndroidVersion = '1.1.0'
     daggerVersion = '2.7'

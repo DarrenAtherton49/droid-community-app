@@ -4,8 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.darrenatherton.droidcommunity.account.repository.AccountDataRepository
-import com.darrenatherton.droidcommunity.account.repository.AccountRepository
 import com.darrenatherton.droidcommunity.common.navigation.Navigator
 import com.darrenatherton.droidcommunity.common.threading.*
 import com.darrenatherton.droidcommunity.reddit.mapper.RedditDomainMapper
@@ -13,6 +11,10 @@ import com.darrenatherton.droidcommunity.reddit.mapper.RedditNetworkResponseMapp
 import com.darrenatherton.droidcommunity.reddit.repository.RedditDataRepository
 import com.darrenatherton.droidcommunity.reddit.repository.RedditRepository
 import com.darrenatherton.droidcommunity.reddit.service.RedditService
+import com.darrenatherton.droidcommunity.subscription.FirebaseSubscriptionService
+import com.darrenatherton.droidcommunity.subscription.SubscriptionService
+import com.darrenatherton.droidcommunity.subscription.repository.SubscriptionDataRepository
+import com.darrenatherton.droidcommunity.subscription.repository.SubscriptionRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -33,6 +35,10 @@ class AppModule(private val application: Application) {
 
     @Provides @Singleton internal fun provideNavigator() = Navigator()
 
+    //===================================================================================
+    // Threading
+    //===================================================================================
+
     @Provides @Singleton internal fun provideUiThread(androidUiThread: AndroidUiThread): UiThread {
         return androidUiThread
     }
@@ -47,7 +53,9 @@ class AppModule(private val application: Application) {
         return rxComputationExecutor
     }
 
-    @Provides @Singleton internal fun provideRedditService() = RedditService.Factory.create()
+    //===================================================================================
+    // Repositories
+    //===================================================================================
 
     @Provides @Singleton internal fun provideRedditRepository(redditService: RedditService,
                                                               networkResponseMapper: RedditNetworkResponseMapper,
@@ -55,7 +63,18 @@ class AppModule(private val application: Application) {
         return RedditDataRepository(redditService, networkResponseMapper, redditDomainMapper)
     }
 
-    @Provides @Singleton internal fun provideAccountRepository(): AccountRepository {
-        return AccountDataRepository()
+    @Provides @Singleton internal fun provideSubscriptionRepository(
+            subscriptionService: SubscriptionService): SubscriptionRepository {
+        return SubscriptionDataRepository(subscriptionService)
+    }
+
+    //===================================================================================
+    // Services
+    //===================================================================================
+
+    @Provides @Singleton internal fun provideRedditService() = RedditService.Factory.create()
+
+    @Provides @Singleton internal fun provideSubscriptionService(): SubscriptionService {
+        return FirebaseSubscriptionService()
     }
 }

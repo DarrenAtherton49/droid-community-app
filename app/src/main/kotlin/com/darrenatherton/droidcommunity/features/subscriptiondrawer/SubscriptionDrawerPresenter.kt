@@ -8,15 +8,27 @@ import javax.inject.Inject
 @PerScreen
 class SubscriptionDrawerPresenter @Inject constructor() : BasePresenter<SubscriptionDrawerPresenter.View>() {
 
+    //===================================================================================
+    // View attach/detach
+    //===================================================================================
+
+    override fun onViewAttached() {
+        loadSubscriptions()
+    }
+
     override fun onViewDetached() {
 
     }
 
-    override fun onViewAttached() {
+    //===================================================================================
+    // Domain actions to execute
+    //===================================================================================
 
+    private fun loadSubscriptions() {
+//        performDomainAction {
+//
+//        }
     }
-
-
 
     interface View : BaseView {
 

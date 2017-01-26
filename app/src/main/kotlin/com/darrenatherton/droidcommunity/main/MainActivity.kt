@@ -42,9 +42,10 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        supportActionBar?.title = getString(R.string.feed_title)
-
         initTabs()
+
+        // set initially selected tab
+        presenter.onTabSelected(presenter.FEED_TAB)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -83,9 +84,6 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
         viewPagerMain.adapter = viewPagerAdapter
         viewPagerMain.addOnPageChangeListener(this)
         tablayoutMain.setupWithViewPager(viewPagerMain)
-
-        // set initially selected tab
-        presenter.onTabSelected(presenter.FEED_TAB)
     }
 
     //===================================================================================

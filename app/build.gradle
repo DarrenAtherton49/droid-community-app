@@ -47,6 +47,8 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
 
+    compile "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
+
     compile "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlinVersion"
 
     compile "io.reactivex:rxjava:$rootProject.rxJavaVersion"
@@ -105,3 +107,5 @@ configurations.compile.dependencies.each { compileDependency ->
         configurations.androidTestCompile.exclude module: "${compileDependency.getName()}"
     }
 }
+
+apply plugin: 'com.google.gms.google-services'
