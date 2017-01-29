@@ -1,13 +1,14 @@
 package com.darrenatherton.droidcommunity.data.subscription.service
 
 import com.darrenatherton.droidcommunity.domain.reddit.Subscription
+import com.google.firebase.database.FirebaseDatabase
 import rx.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class FirebaseSubscriptionService @Inject constructor(
-        //todo inject firebase
+        val firebaseDatabase: FirebaseDatabase
 ) : SubscriptionService {
 
     override fun getAllSubscriptions(): Observable<List<Subscription>> {

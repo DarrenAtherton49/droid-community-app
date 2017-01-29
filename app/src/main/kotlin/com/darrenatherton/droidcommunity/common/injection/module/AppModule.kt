@@ -6,15 +6,16 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.darrenatherton.droidcommunity.common.navigation.Navigator
 import com.darrenatherton.droidcommunity.common.threading.*
-import com.darrenatherton.droidcommunity.domain.reddit.RedditDomainMapper
-import com.darrenatherton.droidcommunity.data.reddit.RedditResponseMapper
 import com.darrenatherton.droidcommunity.data.reddit.RedditDataRepository
-import com.darrenatherton.droidcommunity.domain.reddit.RedditRepository
+import com.darrenatherton.droidcommunity.data.reddit.RedditResponseMapper
 import com.darrenatherton.droidcommunity.data.reddit.service.RedditService
+import com.darrenatherton.droidcommunity.data.subscription.SubscriptionDataRepository
 import com.darrenatherton.droidcommunity.data.subscription.service.FirebaseSubscriptionService
 import com.darrenatherton.droidcommunity.data.subscription.service.SubscriptionService
-import com.darrenatherton.droidcommunity.data.subscription.SubscriptionDataRepository
+import com.darrenatherton.droidcommunity.domain.reddit.RedditDomainMapper
+import com.darrenatherton.droidcommunity.domain.reddit.RedditRepository
 import com.darrenatherton.droidcommunity.domain.subscription.SubscriptionRepository
+import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -75,6 +76,6 @@ class AppModule(private val application: Application) {
     @Provides @Singleton internal fun provideRedditService() = RedditService.Factory.create()
 
     @Provides @Singleton internal fun provideSubscriptionService(): SubscriptionService {
-        return FirebaseSubscriptionService()
+        return FirebaseSubscriptionService(FirebaseDatabase.getInstance())
     }
 }

@@ -1,7 +1,7 @@
 package com.darrenatherton.droidcommunity.data.subscription
 
-import com.darrenatherton.droidcommunity.domain.reddit.Subscription
 import com.darrenatherton.droidcommunity.data.subscription.service.SubscriptionService
+import com.darrenatherton.droidcommunity.domain.reddit.Subscription
 import com.darrenatherton.droidcommunity.domain.subscription.SubscriptionRepository
 import rx.Observable
 import javax.inject.Inject
