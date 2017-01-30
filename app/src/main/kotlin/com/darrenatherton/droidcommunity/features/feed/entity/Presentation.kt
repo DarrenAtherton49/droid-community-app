@@ -1,20 +1,18 @@
 package com.darrenatherton.droidcommunity.features.feed.entity
 
-import com.darrenatherton.droidcommunity.data.reddit.Subreddit
-
 //===================================================================================
 // Entities for top level feed items (e.g. horizontal list of reddit posts
 // from a subreddit or list of tweets)
 //===================================================================================
 
-sealed class SubscriptionViewItem(val title: String, val viewType: Int) {
+sealed class SubscriptionViewItem(val key: String, val title: String, val order: Int, val viewType: Int) {
+    class Reddit(key: String, title: String, order: Int) : SubscriptionViewItem(key, title, order, redditItem)
+    class Twitter(key: String, title: String, order: Int) : SubscriptionViewItem(key, title, order, twitter)
+    //class Dribbble() : Subscription() etc...
 
-    class Reddit(title: String, subreddit: Subreddit) : SubscriptionViewItem(title, redditItemGroup)
-    class Twitter(title: String) : SubscriptionViewItem(title, twitterItemGroup)
-
-    companion object Type {
-        val redditItemGroup by lazy { 0 }
-        val twitterItemGroup by lazy { 1 }
+    companion object ViewType {
+        val redditItem by lazy { 0 }
+        val twitter by lazy { 1 }
     }
 }
 

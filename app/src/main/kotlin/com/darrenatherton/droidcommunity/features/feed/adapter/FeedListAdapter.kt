@@ -17,10 +17,10 @@ class FeedListAdapter constructor(private var subscriptionViewItems: List<Subscr
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubscriptionViewHolder {
         return when (viewType) {
-            SubscriptionViewItem.redditItemGroup -> {
+            SubscriptionViewItem.redditItem -> {
                 SubscriptionViewHolder.Reddit(LayoutInflater.from(parent.context).inflate(R.layout.item_subscription, parent, false))
             }
-            SubscriptionViewItem.twitterItemGroup -> {
+            SubscriptionViewItem.twitter -> {
                 SubscriptionViewHolder.Twitter(LayoutInflater.from(parent.context).inflate(R.layout.item_subscription, parent, false))
             }
             else -> {

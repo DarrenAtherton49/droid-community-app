@@ -1,5 +1,8 @@
-package com.darrenatherton.droidcommunity.data.reddit
+package com.darrenatherton.droidcommunity.data.reddit.mapper
 
+import com.darrenatherton.droidcommunity.data.reddit.RedditLink
+import com.darrenatherton.droidcommunity.data.reddit.RedditListing
+import com.darrenatherton.droidcommunity.data.reddit.RedditResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -1,6 +1,7 @@
-package com.darrenatherton.droidcommunity.domain.reddit
+package com.darrenatherton.droidcommunity.data.reddit.mapper
 
 import com.darrenatherton.droidcommunity.data.reddit.RedditLink
+import com.darrenatherton.droidcommunity.domain.reddit.RedditListingItem
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -8,7 +9,7 @@ import javax.inject.Singleton
  * Class used to transform Reddit objects from data layer to domain layer.
  */
 @Singleton
-class RedditDomainMapper @Inject constructor() {
+class RedditDataMapper @Inject constructor() {
 
     internal fun convertLinksDataToDomain(items: List<RedditLink>): List<RedditListingItem> {
         return items.map { link -> convertLinkDataItemToDomain(link) }

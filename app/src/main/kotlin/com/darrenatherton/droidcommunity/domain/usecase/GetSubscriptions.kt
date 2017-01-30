@@ -4,7 +4,7 @@ import com.darrenatherton.droidcommunity.base.domain.ReactiveUseCase
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
 import com.darrenatherton.droidcommunity.common.threading.IoExecutor
 import com.darrenatherton.droidcommunity.common.threading.UiThread
-import com.darrenatherton.droidcommunity.domain.reddit.Subscription
+import com.darrenatherton.droidcommunity.domain.subscription.Subscription
 import com.darrenatherton.droidcommunity.domain.subscription.SubscriptionRepository
 import rx.Observable
 import javax.inject.Inject

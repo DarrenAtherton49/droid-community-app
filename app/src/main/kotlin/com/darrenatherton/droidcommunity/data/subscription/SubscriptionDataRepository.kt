@@ -1,24 +1,22 @@
 package com.darrenatherton.droidcommunity.data.subscription
 
+import com.darrenatherton.droidcommunity.data.subscription.mapper.SubscriptionDataMapper
 import com.darrenatherton.droidcommunity.data.subscription.service.SubscriptionService
-import com.darrenatherton.droidcommunity.domain.reddit.Subscription
+import com.darrenatherton.droidcommunity.domain.subscription.Subscription
 import com.darrenatherton.droidcommunity.domain.subscription.SubscriptionRepository
 import rx.Observable
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class SubscriptionDataRepository @Inject constructor(
-        private val subscriptionService: SubscriptionService
-        //todo inject mapper
+        private val subscriptionService: SubscriptionService,
+        private val dataMapper: SubscriptionDataMapper
 ) : SubscriptionRepository {
 
     override fun getAllSubscriptions(): Observable<List<Subscription>> {
-        //todo return subscriptionService
-        //    .map { firebase data class to domain subscription (i.e. 'Subscription' }
-        val s = subscriptionService.getAllSubscriptions()
-        return Observable.just(ArrayList())
+        return subscriptionService.getAllSubscriptions()
+                .map { dataMapper.convertSubscriptionsDataToDomain(it) }
     }
 
     override fun getUserSubscriptions(): Observable<List<Subscription>> {
