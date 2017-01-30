@@ -36,7 +36,7 @@ ext {
     junitVersion = '4.12'
     supportLibraryVersion = '25.1.0'
     firebaseVersion = '10.0.1'
-    rxFirebaseVersion = '10.1.0'
+    rxFirebaseVersion = '0.0.15'
     rxJavaVersion = '1.1.0'
     rxAndroidVersion = '1.1.0'
     daggerVersion = '2.7'

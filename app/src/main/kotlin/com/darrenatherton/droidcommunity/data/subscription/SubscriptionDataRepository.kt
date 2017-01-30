@@ -4,6 +4,7 @@ import com.darrenatherton.droidcommunity.data.subscription.service.SubscriptionS
 import com.darrenatherton.droidcommunity.domain.reddit.Subscription
 import com.darrenatherton.droidcommunity.domain.subscription.SubscriptionRepository
 import rx.Observable
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,7 +17,8 @@ class SubscriptionDataRepository @Inject constructor(
     override fun getAllSubscriptions(): Observable<List<Subscription>> {
         //todo return subscriptionService
         //    .map { firebase data class to domain subscription (i.e. 'Subscription' }
-        throw UnsupportedOperationException("not implemented")
+        val s = subscriptionService.getAllSubscriptions()
+        return Observable.just(ArrayList())
     }
 
     override fun getUserSubscriptions(): Observable<List<Subscription>> {

@@ -48,9 +48,7 @@ dependencies {
     compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
 
     compile "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
-    compile ("com.androidhuman.rxfirebase:firebase-database-kotlin:$rootProject.rxFirebaseVersion") {
-        transitive = false
-    }
+    compile "com.kelvinapps:rxfirebase:$rootProject.rxFirebaseVersion"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlinVersion"
 
