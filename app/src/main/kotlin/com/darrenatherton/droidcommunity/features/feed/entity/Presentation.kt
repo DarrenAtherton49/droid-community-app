@@ -20,14 +20,14 @@ sealed class SubscriptionViewItem(val key: String, val title: String, val order:
 // Entities for individual feed tiles
 //===================================================================================
 
-sealed class FeedViewSingleItem {
+sealed class FeedSingleViewItem {
 
     class Reddit(val title: String,
                  val subreddit: String,
                  val author: String,
                  val submitted: String,
                  val numComments: String)
-        : FeedViewSingleItem()
+        : FeedSingleViewItem()
 
-    class Twitter(title: String) : FeedViewSingleItem()
+    class Twitter(title: String) : FeedSingleViewItem()
 }

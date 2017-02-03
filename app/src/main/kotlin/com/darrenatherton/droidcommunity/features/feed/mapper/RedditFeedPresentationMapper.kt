@@ -4,7 +4,7 @@ import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
 import com.darrenatherton.droidcommunity.data.reddit.Subreddit
 import com.darrenatherton.droidcommunity.domain.reddit.RedditListingItem
 import com.darrenatherton.droidcommunity.domain.subscription.Subscription
-import com.darrenatherton.droidcommunity.features.feed.entity.FeedViewSingleItem
+import com.darrenatherton.droidcommunity.features.feed.entity.FeedSingleViewItem
 import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
 import javax.inject.Inject
 
@@ -31,12 +31,12 @@ class RedditFeedPresentationMapper @Inject constructor() {
         }
     }
 
-    internal fun convertRedditListingItemsToFeedTile(items: List<RedditListingItem>): List<FeedViewSingleItem.Reddit> {
+    internal fun convertRedditListingItemsToFeedTile(items: List<RedditListingItem>): List<FeedSingleViewItem.Reddit> {
         return items.map { item -> convertRedditListingItemToViewItem(item) }
     }
 
-    private fun convertRedditListingItemToViewItem(item: RedditListingItem): FeedViewSingleItem.Reddit = with(item) {
-        FeedViewSingleItem.Reddit(
+    private fun convertRedditListingItemToViewItem(item: RedditListingItem): FeedSingleViewItem.Reddit = with(item) {
+        FeedSingleViewItem.Reddit(
                 title,
                 Subreddit.getReadableLabelFromSuffix(subreddit),
                 author,

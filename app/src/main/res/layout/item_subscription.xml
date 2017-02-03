@@ -10,7 +10,7 @@
     <include layout="@layout/include_subscription_header"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/sessions"
+        android:id="@+id/childRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/subscription_item_tile_height"
         android:layout_marginTop="@dimen/subscription_header_height"
