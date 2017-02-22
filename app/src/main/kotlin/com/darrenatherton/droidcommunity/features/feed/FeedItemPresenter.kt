@@ -1,6 +1,5 @@
 package com.darrenatherton.droidcommunity.features.feed
 
-import android.util.Log
 import com.darrenatherton.droidcommunity.base.presentation.BasePresenter
 import com.darrenatherton.droidcommunity.base.presentation.BaseView
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
@@ -16,8 +15,7 @@ class FeedItemPresenter @Inject constructor(private val getSubscriptions: GetSub
     //===================================================================================
 
     override fun onViewAttached() {
-        Log.d("","")
-        Log.d("","")
+
     }
 
     override fun onViewDetached() {

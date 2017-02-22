@@ -30,19 +30,6 @@ class FeedPresenter @Inject constructor(private val getSubscriptions: GetFeedSub
     private fun loadFeed() {
         //todo show/hide progress/retry etc
 
-//        performDomainAction {
-//            getSubscriptions.execute(
-//                    onNext = {
-//                        val list = convertFeedSubscriptionsDomainToView(it)
-//                        list.forEach { Log.d("darren", it.title) }
-//                        performViewAction { showSubscriptions(list) }
-//                    },
-//                    onError = { Log.d("darren", it.message ) },
-//                    onCompleted = { Log.d("darren", "onCompleted") }
-//            )
-//        }
-
-
         getSubscriptions.execute(
                 onNext = {
                     it.forEach { Log.d("darren", it.title) }
