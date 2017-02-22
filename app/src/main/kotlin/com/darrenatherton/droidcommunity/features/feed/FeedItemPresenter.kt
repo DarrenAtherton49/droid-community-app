@@ -1,15 +1,14 @@
 package com.darrenatherton.droidcommunity.features.feed
 
+import android.util.Log
 import com.darrenatherton.droidcommunity.base.presentation.BasePresenter
 import com.darrenatherton.droidcommunity.base.presentation.BaseView
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
 import com.darrenatherton.droidcommunity.domain.usecase.GetSubscriptions
-import com.darrenatherton.droidcommunity.features.feed.mapper.RedditFeedPresentationMapper
 import javax.inject.Inject
 
 @PerScreen
-class FeedItemPresenter @Inject constructor(private val getSubscriptions: GetSubscriptions,
-                                            private val presentationMapper: RedditFeedPresentationMapper)
+class FeedItemPresenter @Inject constructor(private val getSubscriptions: GetSubscriptions)
     : BasePresenter<FeedItemPresenter.View>() {
 
     //===================================================================================
@@ -17,7 +16,8 @@ class FeedItemPresenter @Inject constructor(private val getSubscriptions: GetSub
     //===================================================================================
 
     override fun onViewAttached() {
-
+        Log.d("","")
+        Log.d("","")
     }
 
     override fun onViewDetached() {

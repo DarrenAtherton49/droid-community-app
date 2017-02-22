@@ -1,7 +1,7 @@
 package com.darrenatherton.droidcommunity.data.subscription.service
 
 import com.darrenatherton.droidcommunity.data.subscription.SubscriptionData
-import com.darrenatherton.droidcommunity.data.subscription.mapper.SubscriptionResponseMapper
+import com.darrenatherton.droidcommunity.data.subscription.mapper.convertSubscriptionsResponseToData
 import com.google.firebase.database.FirebaseDatabase
 import com.kelvinapps.rxfirebase.RxFirebaseDatabase
 import rx.Observable
@@ -10,13 +10,12 @@ import javax.inject.Singleton
 
 @Singleton
 class FirebaseSubscriptionService @Inject constructor(
-        val firebase: FirebaseDatabase,
-        val responseMapper: SubscriptionResponseMapper
+        val firebase: FirebaseDatabase
 ) : SubscriptionService {
 
     override fun getAllSubscriptions(): Observable<List<SubscriptionData>> {
         return RxFirebaseDatabase.observeSingleValueEvent(firebase.getReference("subscriptions"))
-                .map { responseMapper.convertSubscriptionsResponseToData(it) }
+                .map { convertSubscriptionsResponseToData(it) }
     }
 
     override fun getUserSubscriptions(): Observable<List<SubscriptionData>> {

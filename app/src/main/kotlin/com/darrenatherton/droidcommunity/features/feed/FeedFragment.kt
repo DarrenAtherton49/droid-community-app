@@ -12,7 +12,6 @@ import com.darrenatherton.droidcommunity.base.presentation.BaseFragment
 import com.darrenatherton.droidcommunity.common.injection.component.DaggerFeedComponent
 import com.darrenatherton.droidcommunity.common.injection.module.FeedModule
 import com.darrenatherton.droidcommunity.features.feed.adapter.FeedListAdapter
-import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
 import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 
@@ -20,14 +19,14 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
         FeedListAdapter.OnItemClickListener {
 
     interface FeedListNavListener {
-        fun showSubscription(subscriptionViewItem: SubscriptionViewItem)
+        fun showSubscription(subscriptionFeedItem: SubscriptionFeedItem)
     }
 
     override val passiveView = this
-    @Inject override lateinit var presenter: FeedPresenter
+    @Inject override lateinit var presenter: dagger.Lazy<FeedPresenter>
     @LayoutRes override val layoutResId = R.layout.fragment_feed
 
-    @Inject lateinit var feedListAdapter: FeedListAdapter
+    @Inject lateinit var feedListAdapter: dagger.Lazy<FeedListAdapter>
     private var feedListNavListener: FeedListNavListener? = null
 
     //===================================================================================
@@ -57,13 +56,12 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
     }
 
     private fun initRecyclerView() {
-        feedListAdapter.addOnItemClickListener(this)
-        val recyclerView = feedRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = feedListAdapter
+        feedListAdapter.get().addOnItemClickListener(this)
+        feedRecyclerView.layoutManager = LinearLayoutManager(context)
+        feedRecyclerView.adapter = feedListAdapter.get()
     }
 
-    override fun onSubscriptionItemClicked(subscriptionViewItem: SubscriptionViewItem) {
+    override fun onSubscriptionItemClicked(subscriptionFeedItem: SubscriptionFeedItem) {
 
     }
 
@@ -85,10 +83,10 @@ class FeedFragment : BaseFragment<FeedPresenter.View, FeedPresenter>(), FeedPres
     //===================================================================================
 
     override fun showSubscriptions(items: List<SubscriptionViewItem>) {
-        feedListAdapter.replaceData(items)
+        feedListAdapter.get().replaceData(items)
     }
 
-    override fun showSubscriptionDetail(subscriptionViewItem: SubscriptionViewItem) {
-        feedListNavListener?.showSubscription(subscriptionViewItem)
+    override fun showSubscriptionDetail(subscriptionFeedItem: SubscriptionFeedItem) {
+        feedListNavListener?.showSubscription(subscriptionFeedItem)
     }
 }

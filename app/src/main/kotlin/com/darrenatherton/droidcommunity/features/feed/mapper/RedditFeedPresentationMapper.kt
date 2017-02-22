@@ -1,47 +1,41 @@
 package com.darrenatherton.droidcommunity.features.feed.mapper
 
-import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
 import com.darrenatherton.droidcommunity.data.reddit.Subreddit
 import com.darrenatherton.droidcommunity.domain.reddit.RedditListingItem
 import com.darrenatherton.droidcommunity.domain.subscription.Subscription
-import com.darrenatherton.droidcommunity.features.feed.entity.FeedSingleViewItem
-import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
-import javax.inject.Inject
+import com.darrenatherton.droidcommunity.features.feed.FeedSingleViewItem
+import com.darrenatherton.droidcommunity.features.feed.SubscriptionFeedItem
 
 /**
- * Class used to transform Reddit objects from domain layer to presentation layer.
+ * Functions used to transform Reddit objects from domain layer to presentation layer for the feed view.
  */
-@PerScreen
-class RedditFeedPresentationMapper @Inject constructor() {
+internal fun convertFeedSubscriptionsDomainToView(subscriptions: List<Subscription>): List<SubscriptionFeedItem> {
+    return subscriptions
+            .map { convertSubscriptionDomainToView(it) }
+            .sortedBy { it.order }
+}
 
-    internal fun convertSubscriptionsDomainToView(subscriptions: List<Subscription>): List<SubscriptionViewItem> {
-        return subscriptions
-                .map { convertSubscriptionDomainToView(it) }
-                .sortedBy { it.order }
-    }
-
-    private fun convertSubscriptionDomainToView(subscription: Subscription) = with(subscription) {
-        when (subscription) {
-            is Subscription.Reddit -> {
-                SubscriptionViewItem.Reddit(key, title, order)
-            }
-            is Subscription.Twitter -> {
-                SubscriptionViewItem.Twitter(key, title, order)
-            }
+private fun convertSubscriptionDomainToView(subscription: Subscription) = with(subscription) {
+    when (subscription) {
+        is Subscription.Reddit -> {
+            SubscriptionFeedItem.Reddit(key, title, order)
+        }
+        is Subscription.Twitter -> {
+            SubscriptionFeedItem.Twitter(key, title, order)
         }
     }
+}
 
-    internal fun convertRedditListingItemsToFeedTile(items: List<RedditListingItem>): List<FeedSingleViewItem.Reddit> {
-        return items.map { item -> convertRedditListingItemToViewItem(item) }
-    }
+internal fun convertRedditListingItemsToFeedTile(items: List<RedditListingItem>): List<FeedSingleViewItem.Reddit> {
+    return items.map { item -> convertRedditListingItemToViewItem(item) }
+}
 
-    private fun convertRedditListingItemToViewItem(item: RedditListingItem): FeedSingleViewItem.Reddit = with(item) {
-        FeedSingleViewItem.Reddit(
-                title,
-                Subreddit.getReadableLabelFromSuffix(subreddit),
-                author,
-                submitted,
-                numComments
-        )
-    }
+private fun convertRedditListingItemToViewItem(item: RedditListingItem): FeedSingleViewItem.Reddit = with(item) {
+    FeedSingleViewItem.Reddit(
+            title,
+            Subreddit.getReadableLabelFromSuffix(subreddit),
+            author,
+            submitted,
+            numComments
+    )
 }

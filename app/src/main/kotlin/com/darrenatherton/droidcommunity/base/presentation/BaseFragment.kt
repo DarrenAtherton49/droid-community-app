@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import com.darrenatherton.droidcommunity.DroidApplication
 import com.darrenatherton.droidcommunity.common.injection.module.ActivityModule
 
-abstract class BaseFragment<View: BaseView, out Presenter : BasePresenter<View>> : Fragment() {
+abstract class BaseFragment<View: BaseView, Presenter : BasePresenter<View>> : Fragment() {
 
     protected abstract val passiveView: View
-    protected abstract val presenter: Presenter
+    protected abstract val presenter: dagger.Lazy<Presenter>
     protected abstract val layoutResId: Int
 
     protected val navigator by lazy { appComponent().navigator() }
@@ -30,11 +30,11 @@ abstract class BaseFragment<View: BaseView, out Presenter : BasePresenter<View>>
 
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.viewAttached(passiveView)
+        presenter.get().viewAttached(passiveView)
     }
 
     override fun onDestroyView() {
-        presenter.viewDetached()
+        presenter.get().viewDetached()
         super.onDestroyView()
     }
 

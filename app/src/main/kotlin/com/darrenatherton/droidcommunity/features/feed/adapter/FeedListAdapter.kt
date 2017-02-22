@@ -5,22 +5,23 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.darrenatherton.droidcommunity.R
-import com.darrenatherton.droidcommunity.base.presentation.BaseRecyclerWithChildAdapter
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
-import com.darrenatherton.droidcommunity.features.feed.FeedItemPresenter
+import com.darrenatherton.droidcommunity.features.feed.SubscriptionFeedItem
 import com.darrenatherton.droidcommunity.features.feed.SubscriptionViewHolder
-import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
+import com.darrenatherton.droidcommunity.features.feed.SubscriptionViewItem
 import kotlinx.android.synthetic.main.item_subscription.view.*
 import java.util.*
 import javax.inject.Inject
 
+/**
+ * This class is a RecyclerView adapter whose items also have (nested) RecyclerView adapters. Each
+ * item in this adapter represents a subscription and the nested (horizontal RecyclerView in that
+ * subscription represents items which belong to that subscription.
+ */
 @PerScreen
-class FeedListAdapter @Inject constructor(feedItemPresenter: FeedItemPresenter) :
-        BaseRecyclerWithChildAdapter<SubscriptionViewHolder, FeedItemPresenter.View,
-                FeedItemPresenter, SubscriptionViewItem>(), FeedItemPresenter.View {
+class FeedListAdapter @Inject constructor() : RecyclerView.Adapter<SubscriptionViewHolder>() {
 
-    override val passiveView = this
-    override val presenter: FeedItemPresenter = feedItemPresenter
+    private var items: List<SubscriptionViewItem> = ArrayList()
 
     private val onItemClickListeners: MutableList<OnItemClickListener> = ArrayList()
 
@@ -32,29 +33,41 @@ class FeedListAdapter @Inject constructor(feedItemPresenter: FeedItemPresenter) 
         setUpChildAdapters(items)
     }
 
-    // Cache the scroll position of the session list so that we can restore it when re-binding.
-    override fun onViewRecycled(holder: SubscriptionViewHolder) {
-        val position = holder.adapterPosition
-        if (position != RecyclerView.NO_POSITION) {
-            val key = getItem(position).key
-            when (holder) {
-                is SubscriptionViewHolder.Reddit, is SubscriptionViewHolder.Twitter -> {
-                    childAdapterStates.put(key, holder.itemView.childRecyclerView
-                            .layoutManager.onSaveInstanceState())
+    //===================================================================================
+    // Initialization
+    //===================================================================================
+
+    private fun setUpChildAdapters(subscriptions: List<SubscriptionViewItem>) {
+        childAdapters = HashMap(subscriptions.size)
+        childAdapterStates = HashMap(subscriptions.size)
+
+        // store an adapter for each subscription
+        subscriptions.forEach {
+            with(it) {
+                when (subscription) {
+                    is SubscriptionFeedItem.Reddit -> {
+                        childAdapters.put(subscription.key, FeedRedditChildAdapter())
+                    }
+                    is SubscriptionFeedItem.Twitter -> {
+                        //todo add 'is SubscriptionFeedItem.Twitter
+                    }
                 }
             }
         }
-        super.onViewRecycled(holder)
     }
+
+    //===================================================================================
+    // RecyclerView.Adapter lifecycle/functions
+    //===================================================================================
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubscriptionViewHolder {
         return when (viewType) {
-            SubscriptionViewItem.redditItem -> {
+            SubscriptionFeedItem.redditItem -> {
                 //todo change to use pattern for managing viewholder instead of creating and binding inside viewholder
                 SubscriptionViewHolder.Reddit.Factory.create(
                         LayoutInflater.from(parent.context).inflate(R.layout.item_subscription, parent, false))
             }
-            SubscriptionViewItem.twitter -> {
+            SubscriptionFeedItem.twitter -> {
                 SubscriptionViewHolder.Twitter(LayoutInflater.from(parent.context).inflate(R.layout.item_subscription, parent, false))
             }
             else -> {
@@ -63,30 +76,36 @@ class FeedListAdapter @Inject constructor(feedItemPresenter: FeedItemPresenter) 
         }
     }
 
-    override fun onBindViewHolder(viewHolder: SubscriptionViewHolder, position: Int) {
-        when (viewHolder) {
+    override fun onBindViewHolder(holder: SubscriptionViewHolder, position: Int) {
+        when (holder) {
             is SubscriptionViewHolder.Reddit -> {
                 //todo change to use pattern for managing viewholder instead of creating and binding inside viewholder
-                val item = getItem(position) as SubscriptionViewItem.Reddit
-                viewHolder.bind(item, childAdapters[item.key], childAdapterStates[item.key])
+                val item = getSubscription(position) as SubscriptionFeedItem.Reddit
+                holder.bind(item, childAdapters[item.key], childAdapterStates[item.key])
             }
-            is SubscriptionViewHolder.Twitter -> viewHolder.bind(getItem(position) as SubscriptionViewItem.Twitter)
+            is SubscriptionViewHolder.Twitter -> holder.bind(getSubscription(position) as SubscriptionFeedItem.Twitter)
         }
     }
 
-    override fun getItemViewType(position: Int) = getItem(position).viewType
+    override fun getItemViewType(position: Int) = getSubscription(position).viewType
 
-    private fun setUpChildAdapters(subscriptions: List<SubscriptionViewItem>) {
-        childAdapters = HashMap(subscriptions.size)
-        childAdapterStates = HashMap(subscriptions.size)
+    override fun getItemCount() = items.size
 
-        // store an adapter for each subscription
-        subscriptions.forEach {
-            when (it) {
-                is SubscriptionViewItem.Reddit -> childAdapters.put(it.key, FeedRedditChildAdapter())
-                //todo add 'is SubscriptionViewItem.Twitter -> childAdapters.put(it.key, FeedTwitterChildAdapter())
+    // Cache the scroll position of the session list so that we can restore it when re-binding.
+    override fun onViewRecycled(holder: SubscriptionViewHolder) {
+
+        val position = holder.adapterPosition
+        if (position != RecyclerView.NO_POSITION) {
+            val key = getSubscription(position).key
+            when (holder) {
+                is SubscriptionViewHolder.Reddit, is SubscriptionViewHolder.Twitter -> {
+                    childAdapterStates.put(key, holder.itemView.childRecyclerView
+                            .layoutManager.onSaveInstanceState())
+                }
             }
         }
+
+        super.onViewRecycled(holder)
     }
 
     internal fun replaceData(newSubscriptions: List<SubscriptionViewItem>) {
@@ -96,15 +115,23 @@ class FeedListAdapter @Inject constructor(feedItemPresenter: FeedItemPresenter) 
         notifyDataSetChanged() //todo change to use DiffUtils
     }
 
+    private fun getSubscription(position: Int) = items[position].subscription
+
+    private fun getSubscriptionChildren(position: Int) = items[position].subscriptionItems
+
+    //===================================================================================
+    // Click listener
+    //===================================================================================
+
     internal fun addOnItemClickListener(onItemClickListener: OnItemClickListener) {
         onItemClickListeners.add(onItemClickListener)
     }
 
-    private fun notifyOnFeedItemClicked(subscriptionViewItem: SubscriptionViewItem) {
-        onItemClickListeners.forEach { it.onSubscriptionItemClicked(subscriptionViewItem) }
+    private fun notifyOnFeedItemClicked(subscriptionFeedItem: SubscriptionFeedItem) {
+        onItemClickListeners.forEach { it.onSubscriptionItemClicked(subscriptionFeedItem) }
     }
 
     interface OnItemClickListener {
-        fun onSubscriptionItemClicked(subscriptionViewItem: SubscriptionViewItem)
+        fun onSubscriptionItemClicked(subscriptionFeedItem: SubscriptionFeedItem)
     }
 }

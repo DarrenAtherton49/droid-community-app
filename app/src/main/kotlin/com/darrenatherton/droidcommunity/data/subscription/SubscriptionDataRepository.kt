@@ -1,6 +1,6 @@
 package com.darrenatherton.droidcommunity.data.subscription
 
-import com.darrenatherton.droidcommunity.data.subscription.mapper.SubscriptionDataMapper
+import com.darrenatherton.droidcommunity.data.subscription.mapper.convertSubscriptionsDataToDomain
 import com.darrenatherton.droidcommunity.data.subscription.service.SubscriptionService
 import com.darrenatherton.droidcommunity.domain.subscription.Subscription
 import com.darrenatherton.droidcommunity.domain.subscription.SubscriptionRepository
@@ -10,13 +10,12 @@ import javax.inject.Singleton
 
 @Singleton
 class SubscriptionDataRepository @Inject constructor(
-        private val subscriptionService: SubscriptionService,
-        private val dataMapper: SubscriptionDataMapper
+        private val subscriptionService: SubscriptionService
 ) : SubscriptionRepository {
 
     override fun getAllSubscriptions(): Observable<List<Subscription>> {
         return subscriptionService.getAllSubscriptions()
-                .map { dataMapper.convertSubscriptionsDataToDomain(it) }
+                .map { convertSubscriptionsDataToDomain(it) }
     }
 
     override fun getUserSubscriptions(): Observable<List<Subscription>> {

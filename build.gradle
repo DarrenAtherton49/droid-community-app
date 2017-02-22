@@ -34,7 +34,7 @@ ext {
 
     // dependency versions
     junitVersion = '4.12'
-    supportLibraryVersion = '25.1.0'
+    supportLibraryVersion = '25.1.1'
     firebaseVersion = '10.0.1'
     rxFirebaseVersion = '0.0.15'
     rxJavaVersion = '1.1.0'

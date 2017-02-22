@@ -16,7 +16,7 @@ import com.darrenatherton.droidcommunity.common.injection.component.DaggerMainVi
 import com.darrenatherton.droidcommunity.common.injection.component.MainViewComponent
 import com.darrenatherton.droidcommunity.common.injection.module.MainViewModule
 import com.darrenatherton.droidcommunity.features.feed.FeedFragment
-import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
+import com.darrenatherton.droidcommunity.features.feed.SubscriptionFeedItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.layout_appbar_tabs.*
@@ -77,9 +77,9 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
 
     private fun initTabs() {
         viewPagerAdapter.setFragments(
-                getString(R.string.feed_title) to FeedFragment(),
-                getString(R.string.chat_title) to FeedFragment(),
-                getString(R.string.events_title) to FeedFragment()
+                getString(R.string.feed_title) to FeedFragment()
+                //getString(R.string.chat_title) to FeedFragment(),
+                //getString(R.string.events_title) to FeedFragment()
         )
         viewPagerMain.adapter = viewPagerAdapter
         viewPagerMain.addOnPageChangeListener(this)
@@ -151,7 +151,7 @@ class MainActivity : BaseActivity<MainPresenter.View, MainPresenter>(),
     // Navigation functions from fragments
     //===================================================================================
 
-    override fun showSubscription(subscriptionViewItem: SubscriptionViewItem) {
-        //navigator.showSubscription(this, subscriptionViewItem)
+    override fun showSubscription(subscriptionFeedItem: SubscriptionFeedItem) {
+        //navigator.showSubscription(this, subscriptionFeedItem)
     }
 }

@@ -4,14 +4,11 @@ import android.util.Log
 import com.darrenatherton.droidcommunity.base.presentation.BasePresenter
 import com.darrenatherton.droidcommunity.base.presentation.BaseView
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
-import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
-import com.darrenatherton.droidcommunity.features.feed.mapper.RedditFeedPresentationMapper
-import com.darrenatherton.droidcommunity.domain.usecase.GetSubscriptions
+import com.darrenatherton.droidcommunity.domain.usecase.GetFeedSubscriptions
 import javax.inject.Inject
 
 @PerScreen
-class FeedPresenter @Inject constructor(private val getSubscriptions: GetSubscriptions,
-                                        private val presentationMapper: RedditFeedPresentationMapper)
+class FeedPresenter @Inject constructor(private val getSubscriptions: GetFeedSubscriptions)
     : BasePresenter<FeedPresenter.View>() {
 
     //===================================================================================
@@ -33,25 +30,34 @@ class FeedPresenter @Inject constructor(private val getSubscriptions: GetSubscri
     private fun loadFeed() {
         //todo show/hide progress/retry etc
 
-        performDomainAction {
-            getSubscriptions.execute(
-                    onNext = {
-                        val list = presentationMapper.convertSubscriptionsDomainToView(it)
-                        list.forEach { Log.d("darren", it.title) }
-                        performViewAction { showSubscriptions(list) }
-                    },
-                    onError = { Log.d("darren", it.message ) },
-                    onCompleted = { Log.d("darren", "onCompleted") }
-            )
-        }
+//        performDomainAction {
+//            getSubscriptions.execute(
+//                    onNext = {
+//                        val list = convertFeedSubscriptionsDomainToView(it)
+//                        list.forEach { Log.d("darren", it.title) }
+//                        performViewAction { showSubscriptions(list) }
+//                    },
+//                    onError = { Log.d("darren", it.message ) },
+//                    onCompleted = { Log.d("darren", "onCompleted") }
+//            )
+//        }
+
+
+        getSubscriptions.execute(
+                onNext = {
+                    it.forEach { Log.d("darren", it.title) }
+                },
+                onError = { Log.d("darren", "ERROR: " + it.message ) },
+                onCompleted = { Log.d("darren", "onCompleted") }
+        )
     }
 
     //===================================================================================
     // Actions forwarded from view
     //===================================================================================
 
-    internal fun onFeedItemClicked(subscriptionViewItem: SubscriptionViewItem) {
-        performViewAction { showSubscriptionDetail(subscriptionViewItem) }
+    internal fun onFeedItemClicked(subscriptionFeedItem: SubscriptionFeedItem) {
+        performViewAction { showSubscriptionDetail(subscriptionFeedItem) }
     }
 
     //===================================================================================
@@ -60,6 +66,6 @@ class FeedPresenter @Inject constructor(private val getSubscriptions: GetSubscri
 
     interface View : BaseView {
         fun showSubscriptions(items: List<SubscriptionViewItem>)
-        fun showSubscriptionDetail(subscriptionViewItem: SubscriptionViewItem)
+        fun showSubscriptionDetail(subscriptionFeedItem: SubscriptionFeedItem)
     }
 }

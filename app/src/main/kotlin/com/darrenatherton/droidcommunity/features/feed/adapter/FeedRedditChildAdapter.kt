@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.darrenatherton.droidcommunity.R
 import com.darrenatherton.droidcommunity.common.injection.scope.PerScreen
 import com.darrenatherton.droidcommunity.features.feed.RedditFeedItemViewHolder
-import com.darrenatherton.droidcommunity.features.feed.entity.FeedSingleViewItem
+import com.darrenatherton.droidcommunity.features.feed.FeedSingleViewItem
 import java.util.*
 import javax.inject.Inject
 

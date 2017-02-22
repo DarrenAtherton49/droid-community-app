@@ -16,7 +16,7 @@ class Navigator @Inject constructor() {
 //        }
 //    }
 //
-//    internal fun showSubscription(activity: AppCompatActivity, subscriptionViewItem: SubscriptionViewItem) {
+//    internal fun showSubscription(activity: AppCompatActivity, subscriptionViewItem: SubscriptionFeedItem) {
 //
 //    }
 }

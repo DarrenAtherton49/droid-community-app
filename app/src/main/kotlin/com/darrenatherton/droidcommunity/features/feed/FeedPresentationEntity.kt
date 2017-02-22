@@ -1,13 +1,13 @@
-package com.darrenatherton.droidcommunity.features.feed.entity
+package com.darrenatherton.droidcommunity.features.feed
 
 //===================================================================================
 // Entities for top level feed items (e.g. horizontal list of reddit posts
 // from a subreddit or list of tweets)
 //===================================================================================
 
-sealed class SubscriptionViewItem(val key: String, val title: String, val order: Int, val viewType: Int) {
-    class Reddit(key: String, title: String, order: Int) : SubscriptionViewItem(key, title, order, redditItem)
-    class Twitter(key: String, title: String, order: Int) : SubscriptionViewItem(key, title, order, twitter)
+sealed class SubscriptionFeedItem(val key: String, val title: String, val order: Int, val viewType: Int) {
+    class Reddit(key: String, title: String, order: Int) : SubscriptionFeedItem(key, title, order, redditItem)
+    class Twitter(key: String, title: String, order: Int) : SubscriptionFeedItem(key, title, order, twitter)
     //class Dribbble() : Subscription() etc...
 
     companion object ViewType {
@@ -31,3 +31,10 @@ sealed class FeedSingleViewItem {
 
     class Twitter(title: String) : FeedSingleViewItem()
 }
+
+//===================================================================================
+// Object used to contain a subscription and its items. The subscription feed
+// take a list of this object, sorted by subscription.order
+//===================================================================================
+
+data class SubscriptionViewItem(val subscription: SubscriptionFeedItem, val subscriptionItems: List<FeedSingleViewItem>)

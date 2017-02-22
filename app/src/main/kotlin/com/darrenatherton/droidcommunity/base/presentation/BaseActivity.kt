@@ -21,7 +21,7 @@ abstract class BaseActivity<View: BaseView, out Presenter : BasePresenter<View>>
 
         initInjection()
 
-        presenter.viewAttached(passiveView)
+        presenter.viewAttached(passiveView) //todo move this to onStart()?
     }
 
     override fun onStart() {

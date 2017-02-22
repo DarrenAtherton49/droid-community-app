@@ -7,12 +7,8 @@ import android.preference.PreferenceManager
 import com.darrenatherton.droidcommunity.common.navigation.Navigator
 import com.darrenatherton.droidcommunity.common.threading.*
 import com.darrenatherton.droidcommunity.data.reddit.RedditDataRepository
-import com.darrenatherton.droidcommunity.data.reddit.mapper.RedditDataMapper
-import com.darrenatherton.droidcommunity.data.reddit.mapper.RedditResponseMapper
 import com.darrenatherton.droidcommunity.data.reddit.service.RedditService
 import com.darrenatherton.droidcommunity.data.subscription.SubscriptionDataRepository
-import com.darrenatherton.droidcommunity.data.subscription.mapper.SubscriptionDataMapper
-import com.darrenatherton.droidcommunity.data.subscription.mapper.SubscriptionResponseMapper
 import com.darrenatherton.droidcommunity.data.subscription.service.FirebaseSubscriptionService
 import com.darrenatherton.droidcommunity.data.subscription.service.SubscriptionService
 import com.darrenatherton.droidcommunity.domain.reddit.RedditRepository
@@ -60,16 +56,13 @@ class AppModule(private val application: Application) {
     // Repositories
     //===================================================================================
 
-    @Provides @Singleton internal fun provideRedditRepository(redditService: RedditService,
-                                                              networkResponseMapper: RedditResponseMapper,
-                                                              redditDataMapper: RedditDataMapper): RedditRepository {
-        return RedditDataRepository(redditService, networkResponseMapper, redditDataMapper)
+    @Provides @Singleton internal fun provideRedditRepository(redditService: RedditService): RedditRepository {
+        return RedditDataRepository(redditService)
     }
 
     @Provides @Singleton internal fun provideSubscriptionRepository(
-            subscriptionService: SubscriptionService,
-            subscriptionDataMapper: SubscriptionDataMapper): SubscriptionRepository {
-        return SubscriptionDataRepository(subscriptionService, subscriptionDataMapper)
+            subscriptionService: SubscriptionService): SubscriptionRepository {
+        return SubscriptionDataRepository(subscriptionService)
     }
 
     //===================================================================================
@@ -78,8 +71,7 @@ class AppModule(private val application: Application) {
 
     @Provides @Singleton internal fun provideRedditService() = RedditService.Factory.create()
 
-    @Provides @Singleton internal fun provideSubscriptionService(
-            subscriptionResponseMapper: SubscriptionResponseMapper): SubscriptionService {
-        return FirebaseSubscriptionService(FirebaseDatabase.getInstance(), subscriptionResponseMapper)
+    @Provides @Singleton internal fun provideSubscriptionService(): SubscriptionService {
+        return FirebaseSubscriptionService(FirebaseDatabase.getInstance())
     }
 }

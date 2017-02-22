@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.darrenatherton.droidcommunity.features.feed.adapter.FeedChildAdapter
-import com.darrenatherton.droidcommunity.features.feed.entity.FeedSingleViewItem
-import com.darrenatherton.droidcommunity.features.feed.entity.SubscriptionViewItem
+import com.darrenatherton.droidcommunity.features.feed.FeedSingleViewItem
+import com.darrenatherton.droidcommunity.features.feed.SubscriptionFeedItem
 import kotlinx.android.synthetic.main.include_subscription_header.view.*
 import kotlinx.android.synthetic.main.item_subscription.view.*
 
@@ -23,15 +23,21 @@ sealed class SubscriptionViewHolder(itemView: View) : RecyclerView.ViewHolder(it
             fun create(itemView: View): SubscriptionViewHolder.Reddit {
                 val holder = SubscriptionViewHolder.Reddit(itemView)
                 itemView.childRecyclerView.setHasFixedSize(true)
-                itemView.childRecyclerView.layoutManager = LinearLayoutManager(itemView.context)
+                // The line below ensures that child RecyclerView does not capture vertical scrolls,
+                // as we want the outer RecyclerView to handle those instead.
+                itemView.childRecyclerView.isNestedScrollingEnabled = false
+                val layoutManager = LinearLayoutManager(itemView.context)
+                layoutManager.setInitialPrefetchItemCount(5)//todo set based on orientation
+                itemView.childRecyclerView.layoutManager = layoutManager
                 //todo itemView.childRecyclerView.setRecyclerViewPool()
                 return holder
             }
         }
 
-        fun bind(item: SubscriptionViewItem.Reddit, childAdapter: FeedChildAdapter<*, *>?,
+        fun bind(item: SubscriptionFeedItem.Reddit, childAdapter: FeedChildAdapter<*, *>?,
                  childAdapterState: Parcelable?) {
             with(item) {
+
                 itemView.subscriptionTitle.text = title
                 itemView.subscriptionHeader.contentDescription = title
                 itemView.childRecyclerView.adapter = childAdapter
@@ -42,7 +48,7 @@ sealed class SubscriptionViewHolder(itemView: View) : RecyclerView.ViewHolder(it
 
     class Twitter(itemView: View) : SubscriptionViewHolder(itemView) {
 
-        fun bind(item: SubscriptionViewItem.Twitter) {
+        fun bind(item: SubscriptionFeedItem.Twitter) {
             with(item) {
 
             }
